@@ -4,13 +4,48 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <link rel="stylesheet" href='https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Bebas+Neue&family=Oswald:wght@500&display=swap'>
+  <title>Adventura</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+  <nav class="nav-bar"> 
+    <div class="welcome-container">
+      <h2>Adventura</h2>
+      <h3>adventura awaits</h3>
+    </div>
+    <div class="login-form-container">
+      <form class="login-form">
+        <div class="username-container">
+          <input id='username-input' type="string" name="username-input" placeholder="Username" value="" min="0" max = "10">
+        </div>
+        <div class="password-container">
+          <input id='password-input' type="string" name="password-input" placeholder="Password" value="" min="0" max = "10">
+        </div>
+        <div class="submit-container">
+          <input type="submit" value="login" class="login-btn">
+        </div>
+      </form>
+    </div>
+  </nav>
+  <div class="dashboard-container"> 
+    <section class="dashboard">
+      <div class="travel-quote-placeholder-container">
+        <h2>Random Travel Quote Here</h2>
+      </div>
+      <div class="my-trips-container">
+        <div class="all-trips-container">
+        </div>
+        <div class="trip-cost-container">
+        </div>
+        <div class="pending-cost-container">
+        </div>
+      </div>
+      <div class="request-trip-container">
+        <form class="request-trip-form">
+        </form>
+      </div>
+    </section>
+  </div>
   <script src="bundle.js"></script>
-
 </body>
 </html>
