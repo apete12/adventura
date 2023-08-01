@@ -35,3 +35,56 @@ body {
   align-items: flex-start;
   margin-bottom: 15px;
 }
+
+
+.dashboard-container {
+  display: flex;
+  
+  border: solid black 2px;
+  width: 100%;
+  height: 50vh;
+  justify-content: space-around;
+  background: rgba(225, 225, 225, 0.298);
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  /* border: solid black 2px; */
+}
+
+.travel-quote-placeholder-container{
+  display: flex;
+  height: 20%;
+  /* border: solid black 2px; */
+}
+
+.my-trips-container{
+  display: flex;
+  flex-direction: column;
+  border: solid black 2px;
+}
+
+.all-trips-container{
+  display: flex;
+  border: solid black 2px;
+}
+
+.trip-cost-container{
+  display: flex;
+  border: solid black 2px;
+}
+
+.pending-cost-container {
+  display: flex;
+  border: solid black 2px;
+}
+
+.request-trip-container {
+  display: flex;
+}
+
+.request-trip-form {
+  display: flex;
+}
