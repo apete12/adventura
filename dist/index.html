@@ -14,12 +14,17 @@
       <h3>adventura awaits</h3>
     </div>
     <div class="login-form-container">
-      <div class="username-container">
-      </div>
-      <div class="password-container">
-      </div>
-      <div class="submit-container">
-      </div>
+      <form class="login-form">
+        <div class="username-container">
+          <input id='username-input' type="string" name="username-input" placeholder="Username" value="" min="0" max = "10">
+        </div>
+        <div class="password-container">
+          <input id='password-input' type="string" name="password-input" placeholder="Password" value="" min="0" max = "10">
+        </div>
+        <div class="submit-container">
+          <input type="submit" value="login" class="login-btn">
+        </div>
+      </form>
     </div>
   </nav>
   <div class="dashboard-container"> 
@@ -31,6 +36,8 @@
         <div class="all-trips-container">
         </div>
         <div class="trip-cost-container">
+        </div>
+        <div class="pending-cost-container">
         </div>
       </div>
       <div class="request-trip-container">
