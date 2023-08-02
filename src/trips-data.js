@@ -3,13 +3,13 @@ const getUserData = (userId, array) => {
 
 }
 
-const getTripData = (userId, array) => {
+const getTripsList = (userId, array) => {
     return array.filter((trip) => trip.userID === userId)
 }
 
-const getDestinationData = (tripsList, allDestinations) => {
+const getTravelersDestinations = (currentTravelersTrips, allDestinations) => {
     let tripDestinations = allDestinations.reduce((list, destination) => {
-        tripsList.forEach((trip) => {
+        currentTravelersTrips.forEach((trip) => {
             if(trip.destinationID === destination.id) {
                 list.push(destination)
             }
@@ -19,13 +19,74 @@ const getDestinationData = (tripsList, allDestinations) => {
     return tripDestinations
 }
 
+const getTripCost = (currentTravelersTrips, allDestinations) => {
+    let tripCost = currentTravelersTrips.reduce((array, trip) => {
+        let destinationCost = allDestinations.find((destination) => destination.id === trip.destinationID) 
+
+        let estimatedFlightsCost = destinationCost.estimatedFlightCostPerPerson * trip.travelers;
+        let estimatedLodgingCost = destinationCost.estimatedLodgingCostPerDay * trip.duration;
+        let totalCost = estimatedFlightsCost + estimatedLodgingCost
+
+        array.push({
+            id: trip.id,
+            location: destinationCost.destination,
+            estimatedFlightsCost: estimatedFlightsCost,
+            estimatedLodgingCost: estimatedLodgingCost,
+            totalCost: totalCost
+        })
+
+        return array
+
+    }, [])
+
+    return tripCost
+}
+
+const getTotalTravelCost = (currentTravelersTrips, allDestinations) => {
+    let tripsCostList = getTripCost(currentTravelersTrips, allDestinations)
+
+    let totalCost = tripsCostList.reduce((sum, trip) => {
+        sum += trip.totalCost
+
+        return sum
+    }, 0)
+
+    let tenPercentFee = totalCost * .10
+
+    return totalCost + tenPercentFee
+}
 
 
+const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
+    let tripExpenses = getTripCost(currentTravelersTrips, allDestinations)
 
+    let totalTripDetails = currentTravelersTrips.reduce((array, trip) => {
+        let destinationCost = allDestinations.find((destination) => destination.id === trip.destinationID)
+        let tripCosts = tripExpenses.find((trip) => trip.id === trip.id)
+        
+        array.push({
+            trip: trip.id,
+            tripStatus: trip.status,
+            location: destinationCost.destination,
+            tripDuration: trip.duration,
+            startDate: trip.date,
+            numberOfTravelers: trip.travelers,
+            flightCost: tripCosts.estimatedFlightsCost,
+            lodgingCost: tripCosts.estimatedLodgingCost,
+            totalCost: tripCosts.totalCost
+        })
 
+        return array
+    }, [])
+
+return totalTripDetails
+}
 
 export {
     getUserData,
-    getTripData,
-    getDestinationData
+    getTripsList,
+    getTravelersDestinations,
+    getTotalTripDetails,
+    // getTripCost,
+    getTotalTravelCost
 }

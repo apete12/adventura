@@ -6,8 +6,11 @@ import './css/styles.css';
 
 import {
     getUserData,
-    getTripData,
-    getDestinationData
+    getTripsList,
+    getTravelersDestinations,
+    getTotalTripDetails,
+    // getTripCost,
+    getTotalTravelCost
 } from './trips-data'
 
 import {
@@ -25,6 +28,7 @@ var currentTraveler = {
 
 var currentTravelersTrips;
 var currentTravelersDestinations;
+var currentTravelerTotalTripInfo;
 
 // FETCH REQUESTS:
 const fetchTravelerData = () => {
@@ -32,7 +36,6 @@ const fetchTravelerData = () => {
     .then(res => res.json())
     .then(data => {
         console.log(getUserData(currentTraveler.id, data.travelers))
-        
     })
 }
 
@@ -40,9 +43,7 @@ const fetchTripData = () => {
     return fetch(`http://localhost:3001/api/v1/trips`)
     .then(res => res.json())
     .then(data => {
-        currentTravelersTrips = getTripData(currentTraveler.id, data.trips)
-        console.log('current travelers trips', currentTravelersTrips)
-        
+        currentTravelersTrips = getTripsList(currentTraveler.id, data.trips)
     })
 }
 
@@ -50,9 +51,10 @@ const fetchDestinationData = () => {
     return fetch(`http://localhost:3001/api/v1/destinations`)
     .then(res => res.json())
     .then(data => {
-        currentTravelersDestinations = getDestinationData(currentTravelersTrips, data.destinations)
-        console.log(displayTripDetails(currentTravelersDestinations, currentTravelersTrips))
-        console.log('current travelers destinations', currentTravelersDestinations)
+        currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, data.destinations)
+        currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, data.destinations)
+        console.log(displayTripDetails(currentTravelerTotalTripInfo))
+        console.log(currentTravelerTotalTripInfo)
     })
 }
 
