@@ -1,25 +1,26 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 
-// An example of how you tell webpack to use a CSS (SCSS) file
+// IMPORTS:
 import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png'
 
 import {
     getUserData,
-    getTripData
+    getTripData,
+    getDestinationData
 } from './trips-data'
 
-console.log('This is the JavaScript entry file - your code begins here.');
-
+// GLOBAL VARIABLES:
 var currentTraveler = {
-    id: 1,
-    name: "Ham Leadbeater",
-    travelerType: "relaxer"
+    id: 3,
+    name: "Sibby Dawidowitsch",
+    travelerType: "shopper"
 }
 
+var currentTravelersTrips;
+var currentTravelersDestinations;
+
+// FETCH REQUESTS:
 const fetchTravelerData = () => {
     return fetch(`http://localhost:3001/api/v1/travelers`)
     .then(res => res.json())
@@ -33,10 +34,23 @@ const fetchTripData = () => {
     return fetch(`http://localhost:3001/api/v1/trips`)
     .then(res => res.json())
     .then(data => {
-        console.log(getTripData(currentTraveler.id, data.trips))
+        currentTravelersTrips = getTripData(currentTraveler.id, data.trips)
+        console.log('current travelers trips', currentTravelersTrips)
         
     })
 }
 
+const fetchDestinationData = () => {
+    return fetch(`http://localhost:3001/api/v1/destinations`)
+    .then(res => res.json())
+    .then(data => {
+        currentTravelersDestinations = getDestinationData(currentTravelersTrips, data.destinations)
+        console.log('current travelers destinations', currentTravelersDestinations)
+    })
+}
+
+
+
 console.log(fetchTravelerData())
 console.log(fetchTripData())
+console.log(fetchDestinationData())
