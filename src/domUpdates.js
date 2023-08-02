@@ -22,9 +22,8 @@ var tripDetailsDisplay = document.querySelector('.trip-details-display')
     // </div>
     // `
 // });
-// 
 // }
-// 
+
 const displayTripDetails = (totalTripDetails) => {
     travelQuote.classList.add('hidden')
     tripDashboard.classList.remove('hidden')

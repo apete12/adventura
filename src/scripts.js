@@ -9,15 +9,13 @@ import {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
-    // getTripCost,
-    getTotalTravelCost
+    getTripCost,
+    // getTotalTravelCost
 } from './trips-data'
 
 import {
     displayTripDetails
 } from './domUpdates'
-
-
 
 // GLOBAL VARIABLES:
 var currentTraveler = {
