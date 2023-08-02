@@ -11,7 +11,7 @@ import {
 } from './trips-data'
 
 import {
-    displayDestinations
+    displayTripDetails
 } from './domUpdates'
 
 
@@ -51,7 +51,7 @@ const fetchDestinationData = () => {
     .then(res => res.json())
     .then(data => {
         currentTravelersDestinations = getDestinationData(currentTravelersTrips, data.destinations)
-        console.log(displayDestinations(currentTravelersDestinations, currentTravelersTrips))
+        console.log(displayTripDetails(currentTravelersDestinations, currentTravelersTrips))
         console.log('current travelers destinations', currentTravelersDestinations)
     })
 }

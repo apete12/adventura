@@ -6,7 +6,7 @@ var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var tripDashboard = document.querySelector('.my-trips-container')
 var tripDetailsDisplay = document.querySelector('.trip-details-display')
 
-const displayDestinations = (myDestinationsArray, myTripsArray) => {
+const displayTripDetails = (myDestinationsArray, myTripsArray) => {
     travelQuote.classList.add('hidden')
     tripDashboard.classList.remove('hidden')
 
@@ -28,5 +28,5 @@ const displayDestinations = (myDestinationsArray, myTripsArray) => {
 
 // EXPORTS:
 export {
-    displayDestinations,
+    displayTripDetails,
 }
