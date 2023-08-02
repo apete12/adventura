@@ -14,6 +14,10 @@ body {
   background: rgba(225, 225, 225, 0.298);
 }
 
+.title {
+  font-size: 40px;
+}
+
 .welcome-container {
   display: flex;
   align-items: center;
@@ -58,9 +62,13 @@ input[type=text] {
   width: 100%;
 }
 
+h2 {
+  margin: 0px;
+  font-size: 30px;
+}
+
 .dashboard-container {
   display: flex;
-  /* border: solid black 2px; */
   width: 100%;
   height: 75vh;
   justify-content: space-around;
@@ -74,7 +82,6 @@ input[type=text] {
   width: 50vw;
   font-family: 'Bebas Neue';
   background: rgba(225, 225, 225, 0.791);
-  /* border: solid black 2px; */
 }
 
 .travel-quote-placeholder-container{
@@ -83,29 +90,53 @@ input[type=text] {
   height: 100%;
   justify-content: center;
   align-items: center;
-  /* border: solid black 2px; */
+}
+
+.heading {
+  margin: 10px;
 }
 
 .my-trips-container{
   display: flex;
   flex-direction: column;
-  /* border: solid black 2px; */
   align-items: center;
 }
 
 .all-trips-container{
   display: flex;
-  /* border: solid black 2px; */
+  flex-direction: column;
+  align-items: flex-start;
+  width: 95%;
+  overflow-x: scroll;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
+.trip-details-display {
+  display: flex;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+.destination-container{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.trip {
+  margin: 0px;
+}
+
+.detail {
+  font-size: 15px;
+}
 .trip-cost-container{
   display: flex;
-  /* border: solid black 2px; */
 }
 
 .pending-cost-container {
   display: flex;
-  /* border: solid black 2px; */
 }
 
 .request-trip-container {

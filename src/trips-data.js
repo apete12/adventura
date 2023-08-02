@@ -1,7 +1,3 @@
-
-
-// pass through userId and array
-// return specific traveler based on traveler id
 const getUserData = (userId, array) => {
     return array.find((traveler) => traveler.id === userId)
 
@@ -22,6 +18,9 @@ const getDestinationData = (tripsList, allDestinations) => {
     }, [])
     return tripDestinations
 }
+
+
+
 
 
 
