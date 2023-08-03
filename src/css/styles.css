@@ -94,12 +94,14 @@ h2 {
 
 .heading {
   margin: 10px;
+  font-size: 40px;
 }
 
 .my-trips-container{
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%
 }
 
 .all-trips-container{
@@ -107,6 +109,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   width: 95%;
+  height: 100%;
   overflow-x: scroll;
   margin-left: 10px;
   margin-right: 10px;
@@ -121,20 +124,30 @@ h2 {
 .destination-container{
   display: flex;
   flex-direction: column;
-  width: 200px;
+  height: 100%;
+  width: 400px;
 }
 
 .trip {
   margin: 0px;
+  font-size: 40px;
 }
 
 .detail {
-  font-size: 15px;
+  font-size: 20px;
 }
+
 .trip-cost-container{
   display: flex;
 }
 
+.total-cost-display{
+  display: flex;
+  font-size: 20px;
+  margin: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 .pending-cost-container {
   display: flex;
 }
