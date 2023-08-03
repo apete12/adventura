@@ -42,20 +42,20 @@ const getTripCost = (currentTravelersTrips, allDestinations) => {
     return tripCost
 }
 
-const getTotalTravelCost = (currentTravelersTrips, allDestinations) => {
-    let tripsCostList = getTripCost(currentTravelersTrips, allDestinations)
-
-    let totalCost = tripsCostList.reduce((sum, trip) => {
-        sum += trip.totalCost
-
-        return sum
-    }, 0)
-
-    let tenPercentFee = totalCost * .10
-
-    return totalCost + tenPercentFee
-}
-
+// const getTotalTravelCost = (currentTravelersTrips, allDestinations) => {
+    // let tripsCostList = getTripCost(currentTravelersTrips, allDestinations)
+// 
+    // let totalCost = tripsCostList.reduce((sum, trip) => {
+        // sum += trip.totalCost
+// 
+        // return sum
+    // }, 0)
+// 
+    // let tenPercentFee = totalCost * .10
+// 
+    // return totalCost + tenPercentFee
+// }
+// 
 
 const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
     let tripExpenses = getTripCost(currentTravelersTrips, allDestinations)
@@ -82,11 +82,24 @@ const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
 return totalTripDetails
 }
 
+
+const getTotalTravelCost = (totalTripDetails) => {
+    let totalCost = totalTripDetails.reduce((sum, trip) => {
+        sum += trip.totalCost
+
+        return sum
+    }, 0)
+
+    let tenPercentFee = totalCost * .10
+
+    return totalCost + tenPercentFee
+}
+
+
 export {
     getUserData,
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
-    // getTripCost,
     getTotalTravelCost
 }

@@ -1,5 +1,3 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
 
 // IMPORTS:
 import './css/styles.css';
@@ -9,19 +7,17 @@ import {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
-    getTripCost,
-    // getTotalTravelCost
 } from './trips-data'
 
 import {
-    displayTripDetails
+    renderDashboard
 } from './domUpdates'
 
 // GLOBAL VARIABLES:
 var currentTraveler = {
-    id: 3,
-    name: "Sibby Dawidowitsch",
-    travelerType: "shopper"
+    id: 2,
+    name: "Rachael Vaughten",
+    travelerType: "thrill-seeker"
 }
 
 var currentTravelersTrips;
@@ -51,11 +47,9 @@ const fetchDestinationData = () => {
     .then(data => {
         currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, data.destinations)
         currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, data.destinations)
-        console.log(displayTripDetails(currentTravelerTotalTripInfo))
-        console.log(currentTravelerTotalTripInfo)
+        console.log(renderDashboard(currentTravelerTotalTripInfo))
     })
 }
-
 
 
 console.log(fetchTravelerData())

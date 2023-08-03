@@ -1,10 +1,13 @@
 // IMPORTS:
-
+import {
+    getTotalTravelCost
+} from './trips-data'
 // QUERY SELECTORS:
 
 var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var tripDashboard = document.querySelector('.my-trips-container')
 var tripDetailsDisplay = document.querySelector('.trip-details-display')
+var totalCostDisplay = document.querySelector('.total-cost-display')
 
 // const displayTripDetails = (myDestinationsArray, myTripsArray) => {
     // travelQuote.classList.add('hidden')
@@ -45,13 +48,19 @@ const displayTripDetails = (totalTripDetails) => {
 
 }
 
+const displayYearExpenses = (totalTripDetails) => {
+    let totalCost = getTotalTravelCost(totalTripDetails)
 
+    totalCostDisplay.innerText = `You've spent $${totalCost} on travel this year.`
+}
 
+const renderDashboard = (totalTripDetails) => {
+    displayTripDetails(totalTripDetails)
+    displayYearExpenses(totalTripDetails)
 
-
-
+}
 
 // EXPORTS:
 export {
-    displayTripDetails,
+    renderDashboard,
 }
