@@ -1,7 +1,8 @@
 // IMPORTS:
 
 import {
-    getTotalTravelCost
+    getTotalTravelCost,
+    getDestination
 } from './trips-data'
 
 // QUERY SELECTORS:
@@ -10,9 +11,12 @@ var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var tripDashboard = document.querySelector('.my-trips-container')
 var tripDetailsDisplay = document.querySelector('.trip-details-display')
 var totalCostDisplay = document.querySelector('.total-cost-display')
-var chooseDestinationDisplay = document.querySelector('.display-destination-container')
+var destinationContainer = document.querySelector('.display-destination-container')
+var chooseDestinationDisplay = document.querySelector('.destinations-grid')
 var requestTripDisplay = document.querySelector('.request-trip-container')
 var loginForm = document.querySelector('.login-form-container')
+var returnHomeFromDestinationsButton = document.querySelector('.exit-destination-btn')
+var locationDisplay = document.querySelector('.location-container')
 
 // FUNCTIONS:
 
@@ -43,7 +47,6 @@ const displayYearExpenses = (totalTripDetails) => {
 const renderDashboard = (totalTripDetails) => {
     displayTripDetails(totalTripDetails)
     displayYearExpenses(totalTripDetails)
-
 }
 
 const displayTravelerDashboard = (totalTripDetails) => {
@@ -52,14 +55,50 @@ const displayTravelerDashboard = (totalTripDetails) => {
     renderDashboard(totalTripDetails)
 }
 
-const displayDestinations = () => {
+const toggleDestinations = (allDestinations) => {
     tripDashboard.classList.add('hidden')
-    chooseDestinationDisplay.classList.remove('hidden')
+    destinationContainer.classList.remove('hidden')
+
+    displayDestinations(allDestinations)
+}
+
+const displayDestinations = (allDestinations) => {
+    allDestinations.destinations.map((location) => {
+        chooseDestinationDisplay.innerHTML += `
+    <div class='destination-details' id='${location.id}'>
+        <p class="destination-location">${location.destination}</p>
+        <p class="destination-flight">Airfare: ${location.estimatedFlightCostPerPerson}</p>
+        <p class="destination-lodging">Lodging: ${location.estimatedLodgingCostPerDay}</p>
+        <button id="lets-go-btn" class="lets-go-btn">LETS GO</button>
+    </div>
+    `
+    });
+}
+
+const returnHomeFromDestinations = () => {
+    tripDashboard.classList.remove('hidden')
+    chooseDestinationDisplay.classList.add('hidden')
+    destinationContainer.classList.add('hidden')
 }
 
 const displayRequestTripForm = () => {
-    chooseDestinationDisplay.classList.add('hidden')
+    destinationContainer.classList.add('hidden')
     requestTripDisplay.classList.remove('hidden')
+}
+
+const displayDestinationImage = (destinationId, allDestinations) => {
+    let destinationInfo = getDestination(destinationId, allDestinations)
+    console.log(destinationInfo)
+    
+    locationDisplay.innerHTML = `
+    <div class="location-title-container">
+        <p class="adventure-in">Adventure in...</p>
+        <p class="destination-location">${destinationInfo.destination}</p>
+    </div>
+    <div class="location-image-container">
+        <img class="locatin-image" src='${destinationInfo.image}' alt='${destinationInfo.alt}'>
+    </div>
+    `
 }
 
 const returnHome = () => {
@@ -71,11 +110,16 @@ const removeLoginForm = () => {
     loginForm.classList.add('hidden')
 }
 
+
+
 // EXPORTS:
 export {
     displayRequestTripForm,
     displayTravelerDashboard,
     returnHome,
     removeLoginForm,
-    displayDestinations
+    toggleDestinations,
+    // displayDestinations,
+    returnHomeFromDestinations,
+    displayDestinationImage
 }

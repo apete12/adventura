@@ -95,11 +95,17 @@ const getTotalTravelCost = (totalTripDetails) => {
     return totalCost + tenPercentFee
 }
 
+const getDestination = (destinationId, allDestinations) => {
+    let destinationInfo = allDestinations.destinations.find((destination) => destination.id == destinationId)
+    return destinationInfo
+}
+
 
 export {
     getUserData,
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
-    getTotalTravelCost
+    getTotalTravelCost,
+    getDestination
 }

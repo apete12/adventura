@@ -39,32 +39,45 @@
         <div class="trip-cost-container">
           <div class="total-cost-display"></div>
         </div>
-        <div class="trip-cost-container">
+        <div class="book-trip-btn-container">
           <button class="book-trip-btn">BOOK A NEW ADVENTURE</button>
         </div>
       </div>
       <div class="display-destination-container hidden">
+        <div class="choose-destination-container">
+          <h2 class="choose-destination heading">CHOOSE YOUR NEXT ADVENTURE SPOT:</h2>
+        </div>
         <article class="destinations-grid"></article>
+        <div class="exit-destination-btn-container">
+          <button class="exit-destination-btn">RETURN HOME</button>
+        </div>
+        <!-- <button id="submit-destination-btn" class="submit-request-btn">SUBMIT</button> -->
       </div>
       <div class="request-trip-container hidden">
-        <form class="request-trip-form hidden">
-          <div class="date-container">
-            <label for="start-date-input">Choose start date: </label>
-            <input type="date" name="start-date" id="start-date-input" value="2023-07-01" min="2023-07-24" max="2025-07-01"/>
+        <form class="request-trip-form">
+          <div class="location-container">
           </div>
-          <div class="duration-container">
-            <label for="duration-input">Input trip duration: </label>
-            <input id='duration-input' type="number" name="duration" placeholder="number of days" value="" min="1" max = "100">
+          <div class="inputs-container">
+            <div class="date-container">
+              <label for="start-date-input">Choose start date: </label>
+              <input type="date" name="start-date" id="start-date-input" value="2023-07-01" min="2023-07-24" max="2025-07-01"/>
+            </div>
+            <div class="duration-container">
+              <label for="duration-input">Input trip duration: </label>
+              <input id='duration-input' type="number" name="duration" placeholder="number of days" value="" min="1" max = "100">
+            </div>
+            <div class="travelers-container">
+              <label for="travelers-input">Input number of travelers: </label>
+              <input id='travelers-input' type="number" name="travelers" placeholder="number of travelers" value="" min="1" max = "100">
+            </div>
           </div>
-          <div class="travelers-container">
-            <label for="travelers-input">Input number of travelers: </label>
-            <input id='travelers-input' type="number" name="travelers" placeholder="number of travelers" value="" min="1" max = "100">
-          </div>
-          <div class="submit-request-container">
-            <button id="submit-request-btn" class="submit-request-btn">SUBMIT</button>
-          </div>
-          <div class="return-home-container">
-            <button class="return-home-btn">RETURN HOME</button>
+          <div class="buttons-container">
+            <div class="return-home-container">
+              <button class="return-home-btn">RETURN HOME</button>
+            </div>
+            <div class="submit-request-container">
+              <button id="submit-request-btn" class="submit-request-btn">SUBMIT</button>
+            </div>
           </div>
         </form>
       </div>

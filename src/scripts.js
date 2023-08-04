@@ -9,11 +9,14 @@ import {
 } from './trips-data'
 
 import {
-    displayDestinations,
+    // displayDestinations,
     displayRequestTripForm,
+    toggleDestinations,
     displayTravelerDashboard,
+    returnHomeFromDestinations,
     returnHome,
     removeLoginForm,
+    displayDestinationImage
 } from './domUpdates'
 
 // GLOBAL VARIABLES:
@@ -26,12 +29,16 @@ var currentTraveler = {
 var currentTravelersTrips;
 var currentTravelersDestinations;
 var currentTravelerTotalTripInfo;
+var allDestinations;
 
 var bookTripButton = document.querySelector('.book-trip-btn')
 var loginButton = document.querySelector('.login-btn')
+var returnHomeFromDestinationsButton = document.querySelector('.exit-destination-btn')
 var returnHomeButton = document.querySelector('.return-home-btn')
 
 var requestTripForm = document.querySelector('.request-trip-form')
+
+var destinationGrid = document.querySelector('.destinations-grid')
 
 // EVENT LISTENERS:
 loginButton.addEventListener('click', (e) => {
@@ -42,15 +49,31 @@ loginButton.addEventListener('click', (e) => {
     removeLoginForm()
 })
 
-bookTripButton.addEventListener('click', () => {
-    displayDestinations()
-    // displayRequestTripForm()
+bookTripButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    toggleDestinations(allDestinations)
 })
 
+returnHomeFromDestinationsButton.addEventListener('click', () => {
+    returnHomeFromDestinations()
+})
 
 
 returnHomeButton.addEventListener('click', () => {
     returnHome()
+    newDestinationId = ''
+})
+
+
+destinationGrid.addEventListener('click', (e) => {
+    let destinationButton = e.target
+
+    if (destinationButton.id === 'lets-go-btn') {
+        let newDestinationId = destinationButton.parentElement.getAttribute('id')
+        displayRequestTripForm()
+        displayDestinationImage(newDestinationId, allDestinations)
+    }
+
 })
 
 // requestTripForm.addEventListener('click', (e) => {
@@ -108,10 +131,12 @@ const fetchDestinationData = (e) => {
     return fetch(`http://localhost:3001/api/v1/destinations`)
     .then(res => res.json())
     .then(data => {
-        currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, data.destinations)
-        currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, data.destinations)
+        allDestinations = data
+        currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
+        currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
         displayTravelerDashboard(currentTravelerTotalTripInfo)
-        console.log(currentTravelersTrips)
+        // displayDestinations(allDestinations)
+        // console.log(currentTravelersTrips)
     })
 }
 

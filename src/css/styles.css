@@ -134,10 +134,13 @@ h2 {
 }
 
 .detail {
-  font-size: 20px;
+  font-size: 15px;
   font-family: 'Raleway', sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
+.book-trip-btn-container,
 .trip-cost-container{
   display: flex;
 }
@@ -150,11 +153,14 @@ h2 {
   padding-bottom: 15px;
 }
 
-.book-trip-btn{
+.book-trip-btn,
+.exit-destination-btn,
+.submit-request-btn,
+.return-home-btn {
   cursor: pointer;
-  font-family:  'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .request-trip-container {
@@ -165,16 +171,57 @@ h2 {
   height: 100%
 }
 
+.display-destination-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.choose-destination-container {
+  display: flex;
+  justify-content: center;
+  height: 15%;
+}
+
 .destinations-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 45vh;
-  grid-auto-rows: 45vh;
-  grid-gap: 20px;
-  height: 100%;
-  width: 95%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-columns: 1vw;
+  grid-auto-rows: 15vh;
+  grid-gap: 55px;
+  height: 65%;
+  width: 100%;
   overflow-y: scroll;
-  /* margin: 1.5em 2.5em 1.5em 6em; */
+  margin: 0px;
+}
+
+.destination-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px;
+}
+
+.destination-location {
+  font-size: 30px;
+  display: flex;
+  margin: 0px;
+  font-family:'Cormorant Garamond', serif;
+}
+
+.destination-flight,
+.destination-lodging {
+  display: flex;
+  margin: 5px;
+  font-family:'Raleway', sans-serif;
+  font-size: 17px;
+}
+
+.lets-go-btn {
+  margin-top: 5px;
+  font-family:'Raleway', sans-serif;
+  font-size: 15px;
 }
 
 .request-trip-form {
@@ -182,7 +229,50 @@ h2 {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: 50px;
+  
+  /* margin-top: 50px; */
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.location-container {
+  display: flex;
+  /* height: 50px; */
+  width: 100%;
+  height: 35%;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-top: 5px;
+}
+
+.location-image-container {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+}
+
+.location-image{
+  display: flex;
+  background-size: auto;
+}
+
+.location-title-container{
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding-top: 15px; */
+}
+
+.adventure-in {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
 }
 
 .date-container,
@@ -190,9 +280,22 @@ h2 {
 .travelers-container {
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  width: 100%;
+  justify-content:center;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.exit-destination-btn-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 35px;
   width: 100%;
   justify-content: center;
 }
@@ -201,8 +304,7 @@ h2 {
 .return-home-container {
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
-  font-size: 30px;
+  padding-top: 15px;
   width: 100%;
   justify-content: center;
 }
@@ -215,16 +317,4 @@ label {
 input {
   display: flex;
   width: 175px;
-}
-
-.submit-request-btn {
-  cursor: pointer;
-  font-family:  'Cormorant Garamond', serif;
-  font-size: 20px;
-}
-
-.return-home-btn {
-  cursor: pointer;
-  font-family:  'Cormorant Garamond', serif;
-  font-size: 20px;
 }
