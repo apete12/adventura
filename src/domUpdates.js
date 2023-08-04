@@ -10,6 +10,7 @@ var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var tripDashboard = document.querySelector('.my-trips-container')
 var tripDetailsDisplay = document.querySelector('.trip-details-display')
 var totalCostDisplay = document.querySelector('.total-cost-display')
+var chooseDestinationDisplay = document.querySelector('.display-destination-container')
 var requestTripDisplay = document.querySelector('.request-trip-container')
 var loginForm = document.querySelector('.login-form-container')
 
@@ -46,14 +47,18 @@ const renderDashboard = (totalTripDetails) => {
 }
 
 const displayTravelerDashboard = (totalTripDetails) => {
-    console.log('hi')
     travelQuote.classList.add('hidden')
     tripDashboard.classList.remove('hidden')
     renderDashboard(totalTripDetails)
 }
 
-const displayRequestTripForm = () => {
+const displayDestinations = () => {
     tripDashboard.classList.add('hidden')
+    chooseDestinationDisplay.classList.remove('hidden')
+}
+
+const displayRequestTripForm = () => {
+    chooseDestinationDisplay.classList.add('hidden')
     requestTripDisplay.classList.remove('hidden')
 }
 
@@ -71,5 +76,6 @@ export {
     displayRequestTripForm,
     displayTravelerDashboard,
     returnHome,
-    removeLoginForm
+    removeLoginForm,
+    displayDestinations
 }

@@ -43,22 +43,25 @@
           <button class="book-trip-btn">BOOK A NEW ADVENTURE</button>
         </div>
       </div>
+      <div class="display-destination-container hidden">
+        <article class="destinations-grid"></article>
+      </div>
       <div class="request-trip-container hidden">
-        <form class="request-trip-form">
+        <form class="request-trip-form hidden">
           <div class="date-container">
             <label for="start-date-input">Choose start date: </label>
             <input type="date" name="start-date" id="start-date-input" value="2023-07-01" min="2023-07-24" max="2025-07-01"/>
           </div>
           <div class="duration-container">
             <label for="duration-input">Input trip duration: </label>
-            <input id='duration-input' type="number" name="duration" placeholder="number of days" value="" min="0" max = "100">
+            <input id='duration-input' type="number" name="duration" placeholder="number of days" value="" min="1" max = "100">
           </div>
           <div class="travelers-container">
             <label for="travelers-input">Input number of travelers: </label>
-            <input id='travelers' type="number" name="travelers" placeholder="number of travelers" value="" min="0" max = "100">
+            <input id='travelers-input' type="number" name="travelers" placeholder="number of travelers" value="" min="1" max = "100">
           </div>
           <div class="submit-request-container">
-            <button class="submit-request-btn">SUBMIT</button>
+            <button id="submit-request-btn" class="submit-request-btn">SUBMIT</button>
           </div>
           <div class="return-home-container">
             <button class="return-home-btn">RETURN HOME</button>
