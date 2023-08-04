@@ -1,4 +1,3 @@
-
 // IMPORTS:
 import './css/styles.css';
 
@@ -10,7 +9,10 @@ import {
 } from './trips-data'
 
 import {
-    renderDashboard
+    displayRequestTripForm,
+    displayTravelerDashboard,
+    returnHome,
+    removeLoginForm
 } from './domUpdates'
 
 // GLOBAL VARIABLES:
@@ -23,6 +25,25 @@ var currentTraveler = {
 var currentTravelersTrips;
 var currentTravelersDestinations;
 var currentTravelerTotalTripInfo;
+
+var bookTripButton = document.querySelector('.book-trip-btn')
+var loginButton = document.querySelector('.login-btn')
+var returnHomeButton = document.querySelector('.return-home-btn')
+
+// EVENT LISTENERS:
+loginButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    displayTravelerDashboard(currentTravelerTotalTripInfo)
+    removeLoginForm()
+})
+
+bookTripButton.addEventListener('click', () => {
+    displayRequestTripForm()
+})
+
+returnHomeButton.addEventListener('click', () => {
+    returnHome()
+})
 
 // FETCH REQUESTS:
 const fetchTravelerData = () => {
@@ -47,7 +68,6 @@ const fetchDestinationData = () => {
     .then(data => {
         currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, data.destinations)
         currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, data.destinations)
-        console.log(renderDashboard(currentTravelerTotalTripInfo))
     })
 }
 

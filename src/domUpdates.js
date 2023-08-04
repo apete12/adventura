@@ -1,36 +1,22 @@
 // IMPORTS:
+
 import {
     getTotalTravelCost
 } from './trips-data'
+
 // QUERY SELECTORS:
 
 var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var tripDashboard = document.querySelector('.my-trips-container')
 var tripDetailsDisplay = document.querySelector('.trip-details-display')
 var totalCostDisplay = document.querySelector('.total-cost-display')
+var requestTripDisplay = document.querySelector('.request-trip-container')
+var loginForm = document.querySelector('.login-form-container')
 
-// const displayTripDetails = (myDestinationsArray, myTripsArray) => {
-    // travelQuote.classList.add('hidden')
-    // tripDashboard.classList.remove('hidden')
-// 
-    // myDestinationsArray.map((destination) => {
-        // let matchTrip = myTripsArray.find((trip) => trip.destinationID === destination.id)
-        // tripDetailsDisplay.innerHTML += `
-    // <div class='destination-container'>
-        // <p class="destination-name trip">${destination.destination}</p>
-        // <p class="trip-date trip detail">Date: ${matchTrip.date}</p>
-        // <p class="trip-date trip detail">Number of Days: ${matchTrip.duration}</p>
-        // <p class="trip-date trip detail">Group Size: ${matchTrip.travelers} Travelers</p>
-        // <p class="trip-date trip detail">Status: ${matchTrip.status}</p>
-    // </div>
-    // `
-// });
-// }
+// FUNCTIONS:
 
 const displayTripDetails = (totalTripDetails) => {
-    travelQuote.classList.add('hidden')
-    tripDashboard.classList.remove('hidden')
-
+    
     totalTripDetails.map((trip) => {
         tripDetailsDisplay.innerHTML += `
     <div class='destination-container'>
@@ -44,8 +30,7 @@ const displayTripDetails = (totalTripDetails) => {
         <p class="trip detail">Total Cost: ${trip.totalCost}</p>
     </div>
     `
-});
-
+    });
 }
 
 const displayYearExpenses = (totalTripDetails) => {
@@ -60,7 +45,31 @@ const renderDashboard = (totalTripDetails) => {
 
 }
 
+const displayTravelerDashboard = (totalTripDetails) => {
+    console.log('hi')
+    travelQuote.classList.add('hidden')
+    tripDashboard.classList.remove('hidden')
+    renderDashboard(totalTripDetails)
+}
+
+const displayRequestTripForm = () => {
+    tripDashboard.classList.add('hidden')
+    requestTripDisplay.classList.remove('hidden')
+}
+
+const returnHome = () => {
+    tripDashboard.classList.remove('hidden')
+    requestTripDisplay.classList.add('hidden')
+}
+
+const removeLoginForm = () => {
+    loginForm.classList.add('hidden')
+}
+
 // EXPORTS:
 export {
-    renderDashboard,
+    displayRequestTripForm,
+    displayTravelerDashboard,
+    returnHome,
+    removeLoginForm
 }

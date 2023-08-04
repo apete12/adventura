@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href='https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Bebas+Neue&family=Oswald:wght@500&display=swap'>
+  <link rel="stylesheet" href='https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Antic+Didone&family=Bebas+Neue&family=Cormorant+Garamond:wght@300&family=Oswald:wght@500&family=Raleway:wght@100;400;600&display=swap'>
   <title>Adventura</title>
 </head>
 <body>
   <nav class="nav-bar"> 
     <div class="welcome-container">
-      <h2  class="title">Adventura</h2>
+      <h2  class="title">ADVENTURA</h2>
     </div>
     <div class="login-form-container">
       <form class="login-form">
@@ -21,7 +21,7 @@
           <input id='password-input' type="string" name="password-input" placeholder="Password" value="" min="0" max = "10">
         </div>
         <div class="submit-container">
-          <input type="submit" value="login" class="login-btn">
+          <input type="submit" value="LOGIN" class="login-btn">
         </div>
       </form>
     </div>
@@ -32,20 +32,37 @@
         <h2>adventura awaits</h2>
       </div>
       <div class="my-trips-container hidden">
-        <h2 class="all-trips heading">all trips</h2>
+        <h2 class="all-trips heading">WHERE YOU'VE ADVENTURED:</h2>
         <div class="all-trips-container">
           <div class="trip-details-display"></div>
         </div>
-        <!-- <h2 class="all-trips-cost heading">all trips cost</h2> -->
         <div class="trip-cost-container">
           <div class="total-cost-display"></div>
         </div>
-        <!-- <div class="pending-cost-container"> -->
-          <!-- <h2>pending trips cost</h2> -->
-        <!-- </div> -->
+        <div class="trip-cost-container">
+          <button class="book-trip-btn">BOOK A NEW ADVENTURE</button>
+        </div>
       </div>
-      <div class="request-trip-container">
+      <div class="request-trip-container hidden">
         <form class="request-trip-form">
+          <div class="date-container">
+            <label for="start-date-input">Choose start date: </label>
+            <input type="date" name="start-date" id="start-date-input" value="2023-07-01" min="2023-07-24" max="2025-07-01"/>
+          </div>
+          <div class="duration-container">
+            <label for="duration-input">Input trip duration: </label>
+            <input id='duration-input' type="number" name="duration" placeholder="number of days" value="" min="0" max = "100">
+          </div>
+          <div class="travelers-container">
+            <label for="travelers-input">Input number of travelers: </label>
+            <input id='travelers' type="number" name="travelers" placeholder="number of travelers" value="" min="0" max = "100">
+          </div>
+          <div class="submit-request-container">
+            <button class="submit-request-btn">SUBMIT</button>
+          </div>
+          <div class="return-home-container">
+            <button class="return-home-btn">RETURN HOME</button>
+          </div>
         </form>
       </div>
     </section>
