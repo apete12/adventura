@@ -9,6 +9,8 @@ var tripDashboard = document.querySelector('.my-trips-container')
 var tripDetailsDisplay = document.querySelector('.trip-details-display')
 var totalCostDisplay = document.querySelector('.total-cost-display')
 
+var requestTripDisplay = document.querySelector('.request-trip-container')
+
 // const displayTripDetails = (myDestinationsArray, myTripsArray) => {
     // travelQuote.classList.add('hidden')
     // tripDashboard.classList.remove('hidden')
@@ -28,9 +30,7 @@ var totalCostDisplay = document.querySelector('.total-cost-display')
 // }
 
 const displayTripDetails = (totalTripDetails) => {
-    travelQuote.classList.add('hidden')
-    tripDashboard.classList.remove('hidden')
-
+    
     totalTripDetails.map((trip) => {
         tripDetailsDisplay.innerHTML += `
     <div class='destination-container'>
@@ -60,7 +60,21 @@ const renderDashboard = (totalTripDetails) => {
 
 }
 
+const displayTravelerDashboard = (totalTripDetails) => {
+    console.log('hi')
+    travelQuote.classList.add('hidden')
+    tripDashboard.classList.remove('hidden')
+    renderDashboard(totalTripDetails)
+}
+
+const displayRequestTripForm = () => {
+    tripDashboard.classList.add('hidden')
+    requestTripDisplay.classList.remove('hidden')
+}
+
 // EXPORTS:
 export {
-    renderDashboard,
+    displayRequestTripForm,
+    displayTravelerDashboard,
+    // renderDashboard
 }
