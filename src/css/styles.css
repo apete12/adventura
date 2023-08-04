@@ -170,13 +170,23 @@ h2 {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: 90px;
+  margin-top: 50px;
 }
 
 .date-container,
 .duration-container,
-.travelers-container,
-.submit-request-container {
+.travelers-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  width: 100%;
+  justify-content: center;
+}
+
+.submit-request-container,
+.return-home-container {
   display: flex;
   flex-direction: row;
   margin-top: 20px;
@@ -195,6 +205,12 @@ input {
 }
 
 .submit-request-btn {
+  cursor: pointer;
+  font-family:  'Cormorant Garamond', serif;
+  font-size: 20px;
+}
+
+.return-home-btn {
   cursor: pointer;
   font-family:  'Cormorant Garamond', serif;
   font-size: 20px;
