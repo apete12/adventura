@@ -1,14 +1,13 @@
 // IMPORTS:
 import './css/styles.css';
-const dayjs = require('dayjs')
+const dayjs = require('dayjs');
 
 import {
     getUserData,
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
-    
-} from './trips-data'
+} from './trips-data';
 
 import {
     displayRequestTripForm,
@@ -19,14 +18,14 @@ import {
     removeLoginForm,
     displayDestinationImage,
     displayNewTrip
-} from './domUpdates'
+} from './domUpdates';
 
 // GLOBAL VARIABLES:
 var currentTraveler = {
     id: 2,
     name: "Rachael Vaughten",
     travelerType: "thrill-seeker"
-}
+};
 
 var currentTravelersTrips;
 var currentTravelersDestinations;
@@ -36,33 +35,32 @@ var allTrips;
 var newDestinationId;
 var newTripData;
 
-var bookTripBtn = document.querySelector('.book-trip-btn')
-var loginBtn = document.querySelector('.login-btn')
-var returnHomeFromDestinationsBtn = document.querySelector('.exit-destination-btn')
-var returnHomeBtn = document.querySelector('.return-home-btn')
-var requestTripForm = document.querySelector('.request-trip-form')
-var destinationGrid = document.querySelector('.destinations-grid')
+var bookTripBtn = document.querySelector('.book-trip-btn');
+var loginBtn = document.querySelector('.login-btn');
+var returnHomeFromDestinationsBtn = document.querySelector('.exit-destination-btn');
+var returnHomeBtn = document.querySelector('.return-home-btn');
+var requestTripForm = document.querySelector('.request-trip-form');
+var destinationGrid = document.querySelector('.destinations-grid');
 
 // EVENT LISTENERS:
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
     loadTravelerData(e)
-})
+});
 
 bookTripBtn.addEventListener('click', (e) => {
     e.preventDefault()
     toggleDestinations(allDestinations)
-})
+});
 
 returnHomeFromDestinationsBtn.addEventListener('click', () => {
     returnHomeFromDestinations()
-})
+});
 
 returnHomeBtn.addEventListener('click', () => {
     returnHome()
     newDestinationId = ''
-})
-
+});
 
 destinationGrid.addEventListener('click', (e) => {
     let destinationButton = e.target
@@ -71,10 +69,8 @@ destinationGrid.addEventListener('click', (e) => {
         newDestinationId = destinationButton.parentElement.getAttribute('id')
         displayRequestTripForm()
         displayDestinationImage(newDestinationId, allDestinations)
-
     }
-
-})
+});
 
 requestTripForm.addEventListener('click', (e) => {
     e.preventDefault()
@@ -95,59 +91,11 @@ requestTripForm.addEventListener('click', (e) => {
             status: 'pending',            
             suggestedActivities: [],
         }
-
         postNewtrip(newTripData)
-
     }
-})
+});
 
-// POST new trip
-const postNewtrip = (newTripData) => {
-    return fetch(`http://localhost:3001/api/v1/trips`, {
-        method: "POST",
-        body: JSON.stringify(newTripData),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        loadUpdatedTravelData()
-    })
-}
-
-// Fetch traveler data
-function fetchTravelerData() {
-    return fetch(`http://localhost:3001/api/v1/travelers`)
-        .then(response => response.json())
-        .then(data => {
-            return data; 
-        });
-}
-
-// Fetch trip data
-function fetchTripData() {
-    return fetch(`http://localhost:3001/api/v1/trips`)
-        .then(response => response.json())
-        .then(data => {
-            allTrips = data.trips
-            currentTravelersTrips = getTripsList(currentTraveler.id, data.trips)
-            return allTrips; 
-        });
-}
-
-// Fetch destination data
-function fetchDestinationData() {
-    return fetch(`http://localhost:3001/api/v1/destinations`)
-        .then(response => response.json())
-        .then(data => {
-             allDestinations = data
-             currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
-             currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
-            return allDestinations; 
-        });
-}
-
+// LOAD TRAVELER DATA
 function loadTravelerData() {
     fetchTravelerData()
         .then(travelerData => {
@@ -163,8 +111,9 @@ function loadTravelerData() {
         .catch(error => {
             console.error('Error initializing app:', error);
         });
-}
+};
 
+// LOAD UPDATED TRAVELER DATA
 function loadUpdatedTravelData() {
     fetchTravelerData()
     .then(travelerData => {
@@ -181,4 +130,110 @@ function loadUpdatedTravelData() {
         console.error('Error initializing app:', error);
     });
 }
+
+// FETCH
+function fetchTravelerData() {
+    return fetch(`http://localhost:3001/api/v1/travelers`)
+        .then(response => response.json())
+        .then(data => {
+            return data; 
+        });
+};
+
+function fetchTripData() {
+    return fetch(`http://localhost:3001/api/v1/trips`)
+        .then(response => response.json())
+        .then(data => {
+            allTrips = data.trips
+            currentTravelersTrips = getTripsList(currentTraveler.id, data.trips)
+            return allTrips; 
+        });
+};
+
+function fetchDestinationData() {
+    return fetch(`http://localhost:3001/api/v1/destinations`)
+        .then(response => response.json())
+        .then(data => {
+             allDestinations = data
+             currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
+             currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
+            return allDestinations; 
+        });
+};
+
+// POST NEW TRIP:
+const postNewtrip = (newTripData) => {
+    return fetch(`http://localhost:3001/api/v1/trips`, {
+        method: "POST",
+        body: JSON.stringify(newTripData),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        loadUpdatedTravelData()
+    })
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

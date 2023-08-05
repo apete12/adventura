@@ -136,8 +136,6 @@ const displayNewTrip = (currentTravelerTotalTripInfo) => {
     `
 }
 
-
-
 // EXPORTS:
 export {
     displayRequestTripForm,
@@ -145,7 +143,6 @@ export {
     returnHome,
     removeLoginForm,
     toggleDestinations,
-    // displayDestinations,
     returnHomeFromDestinations,
     displayDestinationImage,
     displayNewTrip

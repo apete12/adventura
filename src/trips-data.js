@@ -1,11 +1,11 @@
 const getUserData = (userId, array) => {
     return array.find((traveler) => traveler.id === userId)
 
-}
+};
 
 const getTripsList = (userId, array) => {
     return array.filter((trip) => trip.userID === userId)
-}
+};
 
 const getTravelersDestinations = (currentTravelersTrips, allDestinations) => {
     let tripDestinations = allDestinations.reduce((list, destination) => {
@@ -17,7 +17,7 @@ const getTravelersDestinations = (currentTravelersTrips, allDestinations) => {
         return list
     }, [])
     return tripDestinations
-}
+};
 
 const getTripCost = (currentTravelersTrips, allDestinations) => {
     let tripCost = currentTravelersTrips.reduce((array, trip) => {
@@ -34,28 +34,11 @@ const getTripCost = (currentTravelersTrips, allDestinations) => {
             estimatedLodgingCost: estimatedLodgingCost,
             totalCost: totalCost
         })
-
         return array
-
     }, [])
 
     return tripCost
-}
-
-// const getTotalTravelCost = (currentTravelersTrips, allDestinations) => {
-    // let tripsCostList = getTripCost(currentTravelersTrips, allDestinations)
-// 
-    // let totalCost = tripsCostList.reduce((sum, trip) => {
-        // sum += trip.totalCost
-// 
-        // return sum
-    // }, 0)
-// 
-    // let tenPercentFee = totalCost * .10
-// 
-    // return totalCost + tenPercentFee
-// }
-// 
+};
 
 const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
     let tripExpenses = getTripCost(currentTravelersTrips, allDestinations)
@@ -77,13 +60,11 @@ const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
             image: destinationInfo.image,
             alt: destinationInfo.alt
         })
-
         return array
     }, [])
 
 return totalTripDetails
-}
-
+};
 
 const getTotalTravelCost = (totalTripDetails) => {
     let totalCost = totalTripDetails.reduce((sum, trip) => {
@@ -95,13 +76,12 @@ const getTotalTravelCost = (totalTripDetails) => {
     let tenPercentFee = totalCost * .10
 
     return totalCost + tenPercentFee
-}
+};
 
 const getDestination = (destinationId, allDestinations) => {
     let destinationInfo = allDestinations.destinations.find((destination) => destination.id == destinationId)
     return destinationInfo
-}
-
+};
 
 export {
     getUserData,
@@ -110,4 +90,4 @@ export {
     getTotalTripDetails,
     getTotalTravelCost,
     getDestination
-}
+};
