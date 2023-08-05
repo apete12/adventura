@@ -7,17 +7,18 @@ import {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
+    
 } from './trips-data'
 
 import {
-    // displayDestinations,
     displayRequestTripForm,
     toggleDestinations,
     displayTravelerDashboard,
     returnHomeFromDestinations,
     returnHome,
     removeLoginForm,
-    displayDestinationImage
+    displayDestinationImage,
+    displayNewTrip
 } from './domUpdates'
 
 // GLOBAL VARIABLES:
@@ -45,10 +46,7 @@ var destinationGrid = document.querySelector('.destinations-grid')
 // EVENT LISTENERS:
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    fetchTravelerData(e)
-    fetchTripData(e)
-    fetchDestinationData(e)
-    removeLoginForm()
+    loadTravelerData(e)
 })
 
 bookTripBtn.addEventListener('click', (e) => {
@@ -103,11 +101,7 @@ requestTripForm.addEventListener('click', (e) => {
     }
 })
 
-'Trip with id 204 successfully posted'
-
-
-
-
+// POST new trip
 const postNewtrip = (newTripData) => {
     return fetch(`http://localhost:3001/api/v1/trips`, {
         method: "POST",
@@ -118,45 +112,73 @@ const postNewtrip = (newTripData) => {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data)
-        fetchTravelerData()
-        fetchTripData()
-        fetchDestinationData()
+        loadUpdatedTravelData()
     })
-  }
+}
 
-
-
-
-
-// FETCH REQUESTS:
-const fetchTravelerData = () => {
+// Fetch traveler data
+function fetchTravelerData() {
     return fetch(`http://localhost:3001/api/v1/travelers`)
-    .then(res => res.json())
-    .then(data => {
-        getUserData(currentTraveler.id, data.travelers)
-    })
+        .then(response => response.json())
+        .then(data => {
+            return data; 
+        });
 }
 
-const fetchTripData = () => {
+// Fetch trip data
+function fetchTripData() {
     return fetch(`http://localhost:3001/api/v1/trips`)
-    .then(res => res.json())
-    .then(data => {
-        allTrips = data.trips
-        currentTravelersTrips = getTripsList(currentTraveler.id, data.trips)
-    })
+        .then(response => response.json())
+        .then(data => {
+            allTrips = data.trips
+            currentTravelersTrips = getTripsList(currentTraveler.id, data.trips)
+            return allTrips; 
+        });
 }
 
-const fetchDestinationData = () => {
+// Fetch destination data
+function fetchDestinationData() {
     return fetch(`http://localhost:3001/api/v1/destinations`)
-    .then(res => res.json())
-    .then(data => {
-        allDestinations = data
-        currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
-        currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
-        displayTravelerDashboard(currentTravelerTotalTripInfo)
-       
-    })
+        .then(response => response.json())
+        .then(data => {
+             allDestinations = data
+             currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
+             currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
+            return allDestinations; 
+        });
 }
 
+function loadTravelerData() {
+    fetchTravelerData()
+        .then(travelerData => {
+            return fetchTripData();
+        })
+        .then(tripData => {
+            return fetchDestinationData();
+        })
+        .then(destinationData => {
+            removeLoginForm()
+            displayTravelerDashboard(currentTravelerTotalTripInfo)
+        })
+        .catch(error => {
+            console.error('Error initializing app:', error);
+        });
+}
+
+function loadUpdatedTravelData() {
+    fetchTravelerData()
+    .then(travelerData => {
+        return fetchTripData();
+    })
+    .then(tripData => {
+        return fetchDestinationData();
+    })
+    .then(destinationData => {
+        console.log(currentTravelerTotalTripInfo)
+        displayNewTrip(currentTravelerTotalTripInfo)
+    })
+    .catch(error => {
+        console.error('Error initializing app:', error);
+    });
+}
 

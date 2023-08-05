@@ -61,19 +61,21 @@ const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
     let tripExpenses = getTripCost(currentTravelersTrips, allDestinations)
 
     let totalTripDetails = currentTravelersTrips.reduce((array, trip) => {
-        let destinationCost = allDestinations.find((destination) => destination.id === trip.destinationID)
+        let destinationInfo = allDestinations.find((destination) => destination.id === trip.destinationID)
         let tripCosts = tripExpenses.find((trip) => trip.id === trip.id)
         
         array.push({
             trip: trip.id,
             tripStatus: trip.status,
-            location: destinationCost.destination,
+            location: destinationInfo.destination,
             tripDuration: trip.duration,
             startDate: trip.date,
             numberOfTravelers: trip.travelers,
             flightCost: tripCosts.estimatedFlightsCost,
             lodgingCost: tripCosts.estimatedLodgingCost,
-            totalCost: tripCosts.totalCost
+            totalCost: tripCosts.totalCost,
+            image: destinationInfo.image,
+            alt: destinationInfo.alt
         })
 
         return array

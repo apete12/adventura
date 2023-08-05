@@ -17,6 +17,7 @@ var requestTripDisplay = document.querySelector('.request-trip-container')
 var loginForm = document.querySelector('.login-form-container')
 var returnHomeFromDestinationsButton = document.querySelector('.exit-destination-btn')
 var locationDisplay = document.querySelector('.location-container')
+var displayNewTripContainer = document.querySelector('.display-new-trip-container')
 
 // FUNCTIONS:
 
@@ -66,7 +67,9 @@ const displayDestinations = (allDestinations) => {
     allDestinations.destinations.map((location) => {
         chooseDestinationDisplay.innerHTML += `
     <div class='destination-details' id='${location.id}'>
-        <p class="destination-location">${location.destination}</p>
+        <div class='destination-location-container' id='${location.id}'>
+            <p class="destination-location">${location.destination}</p>
+        </div>
         <p class="destination-flight">Airfare: ${location.estimatedFlightCostPerPerson}</p>
         <p class="destination-lodging">Lodging: ${location.estimatedLodgingCostPerDay}</p>
         <button id="lets-go-btn" class="lets-go-btn">LETS GO</button>
@@ -110,6 +113,29 @@ const removeLoginForm = () => {
     loginForm.classList.add('hidden')
 }
 
+const displayNewTrip = (currentTravelerTotalTripInfo) => {
+    let latestTrip = currentTravelerTotalTripInfo.reverse()
+
+    displayNewTripContainer.classList.remove('hidden')
+    requestTripDisplay.classList.add('hidden')
+    tripDashboard.classList.add('hidden')
+
+    displayNewTripContainer.innerHTML = `
+    <div class="new-trip-title-container">
+        <p class="your-trip-status"> Your trip to ${latestTrip[0].location} is ${latestTrip[0].tripStatus}!</p>
+    </div>
+    <div class="new-trip-details-container">
+        <p class="your-trip-details">Day of Departure: ${latestTrip[0].startDate}</p>
+        <p class="your-trip-details">Number of Nights: ${latestTrip[0].tripDuration}</p>
+        <p class="your-trip-details">Total Cost:${latestTrip[0].totalCost}</p>
+    </div>
+    <div class="new-trip-image-container">
+        <img class="new-trip-image" src='${latestTrip[0].image}' alt='${latestTrip[0].alt}'>
+    </div>
+
+    `
+}
+
 
 
 // EXPORTS:
@@ -121,5 +147,6 @@ export {
     toggleDestinations,
     // displayDestinations,
     returnHomeFromDestinations,
-    displayDestinationImage
+    displayDestinationImage,
+    displayNewTrip
 }

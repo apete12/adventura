@@ -173,7 +173,6 @@ h2 {
   cursor: pointer;
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
-  /* width: 100%; */
 }
 
 .request-trip-container {
@@ -216,8 +215,16 @@ h2 {
   margin: 0px;
 }
 
+.destination-location-container {
+  display: flex;
+  background: rgba(225, 225, 225, 0.966);
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
 .destination-location {
-  font-size: 30px;
+  font-size: 20px;
   display: flex;
   margin: 0px;
   font-family:'Cormorant Garamond', serif;
@@ -331,4 +338,68 @@ input {
   display: flex;
   width: 175px;
   color: black;
+}
+
+.display-new-trip-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.new-trip-title-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 15%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+}
+
+.your-trip-status{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-family:'Cormorant Garamond', serif;
+  font-size: 25px;
+  margin: 0px;
+}
+
+.new-trip-details-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 15%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+}
+
+.your-trip-details{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-family:'Cormorant Garamond', serif;
+  font-size: 15px;
+  margin: 0px;
+}
+
+.new-trip-image-container {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  height: 75%;
+  justify-content: center;
+}
+
+.new-trip-image {
+  display: flex;
+  height: 285px;
+  width: auto;
 }
