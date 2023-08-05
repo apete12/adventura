@@ -43,13 +43,25 @@ body {
   margin-bottom: 10px;
 }
 
-input, 
+#username-input,
+#password-input,
+#duration-input,
+#travelers-input,
 input[type=text] {
   cursor: pointer;
   line-height: 1.5rem;
   font-family: 'Raleway', sans-serif;
   font-size: 17px;
   font-weight: 600;
+}
+
+#start-date-input {
+  cursor: pointer;
+  line-height: 1.5rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  font: black;
 }
 
 .login-btn {
@@ -113,6 +125,7 @@ h2 {
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 15px;
+  cursor: w-resize;
 }
 
 .trip-details-display {
@@ -134,10 +147,13 @@ h2 {
 }
 
 .detail {
-  font-size: 20px;
+  font-size: 15px;
   font-family: 'Raleway', sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
+.book-trip-btn-container,
 .trip-cost-container{
   display: flex;
 }
@@ -150,11 +166,13 @@ h2 {
   padding-bottom: 15px;
 }
 
-.book-trip-btn{
+.book-trip-btn,
+.exit-destination-btn,
+.submit-request-btn,
+.return-home-btn {
   cursor: pointer;
-  font-family:  'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
-  width: 100%;
 }
 
 .request-trip-container {
@@ -165,12 +183,112 @@ h2 {
   height: 100%
 }
 
+.display-destination-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.choose-destination-container {
+  display: flex;
+  justify-content: center;
+  height: 15%;
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-columns: 1vw;
+  grid-auto-rows: 15vh;
+  grid-gap: 55px;
+  height: 65%;
+  width: 100%;
+  overflow-y: scroll;
+  margin: 0px;
+}
+
+.destination-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px;
+}
+
+.destination-location-container {
+  display: flex;
+  background: rgba(225, 225, 225, 0.966);
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.destination-location {
+  font-size: 20px;
+  display: flex;
+  margin: 0px;
+  font-family:'Cormorant Garamond', serif;
+}
+
+.destination-flight,
+.destination-lodging {
+  display: flex;
+  margin: 5px;
+  font-family:'Raleway', sans-serif;
+  font-size: 17px;
+}
+
+.lets-go-btn {
+  margin-top: 5px;
+  font-family:'Raleway', sans-serif;
+  font-size: 15px;
+}
+
 .request-trip-form {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: 50px;
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.location-container {
+  display: flex;
+  width: 100%;
+  height: 35%;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-top: 5px;
+}
+
+.location-image-container {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  justify-content: center;
+}
+
+.location-image{
+  display: flex;
+  background-size: auto;
+}
+
+.location-title-container{
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.adventure-in {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
 }
 
 .date-container,
@@ -178,9 +296,22 @@ h2 {
 .travelers-container {
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  width: 100%;
+  justify-content:center;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.exit-destination-btn-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 35px;
   width: 100%;
   justify-content: center;
 }
@@ -189,8 +320,7 @@ h2 {
 .return-home-container {
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
-  font-size: 30px;
+  padding-top: 15px;
   width: 100%;
   justify-content: center;
 }
@@ -202,17 +332,70 @@ label {
 
 input {
   display: flex;
-  width: 150px;
+  width: 175px;
+  color: black;
 }
 
-.submit-request-btn {
-  cursor: pointer;
-  font-family:  'Cormorant Garamond', serif;
-  font-size: 20px;
+.display-new-trip-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 
-.return-home-btn {
-  cursor: pointer;
-  font-family:  'Cormorant Garamond', serif;
-  font-size: 20px;
+.new-trip-title-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 15%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+}
+
+.your-trip-status{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-family:'Cormorant Garamond', serif;
+  font-size: 25px;
+  margin: 0px;
+}
+
+.new-trip-details-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 15%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+}
+
+.your-trip-details{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-family:'Cormorant Garamond', serif;
+  font-size: 15px;
+  margin: 0px;
+}
+
+.new-trip-image-container {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  height: 75%;
+  justify-content: center;
+}
+
+.new-trip-image {
+  display: flex;
+  height: 285px;
+  width: auto;
 }
