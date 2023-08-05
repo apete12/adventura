@@ -83,11 +83,19 @@ const getDestination = (destinationId, allDestinations) => {
     return destinationInfo
 };
 
+const getPendingTrips = (currentTravelerTotalTripInfo) => {
+    let pendingTrips = currentTravelerTotalTripInfo.filter((trip) => trip.tripStatus == 'pending')
+    console.log(pendingTrips)
+    return pendingTrips
+}
+
+
 export {
     getUserData,
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
     getTotalTravelCost,
-    getDestination
+    getDestination,
+    getPendingTrips, 
 };

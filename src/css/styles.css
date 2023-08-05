@@ -107,7 +107,7 @@ h2 {
   font-size: 20px;
 }
 
-.my-trips-container{
+.my-past-trips-container{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,6 +129,11 @@ h2 {
 }
 
 .trip-details-display {
+  display: flex;
+  margin-bottom: 18px;
+}
+
+.pending-trip-details-display{
   display: flex;
   margin-bottom: 18px;
 }

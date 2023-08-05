@@ -2,27 +2,42 @@
 
 import {
     getTotalTravelCost,
-    getDestination
+    getDestination, 
+    getPendingTrips,
 } from './trips-data'
 
 // QUERY SELECTORS:
+var loginForm = document.querySelector('.login-form-container')
 
 var travelQuote = document.querySelector('.travel-quote-placeholder-container')
-var tripDashboard = document.querySelector('.my-trips-container')
+
+// traveler menu 
+var travelerMenu = document.querySelector('.traveler-menu-container')
+
+// past trips
+var pastTripDashboard = document.querySelector('.my-past-trips-container')
 var tripDetailsDisplay = document.querySelector('.trip-details-display')
 var totalCostDisplay = document.querySelector('.total-cost-display')
+
+// pending trips
+var pendingTripDashboard = document.querySelector('.my-trips-pending-container')
+var pendingTripDetailsDisplay = document.querySelector('.pending-trip-details-display')
+
+// request trip
+var requestTripDisplay = document.querySelector('.request-trip-container')
 var destinationContainer = document.querySelector('.display-destination-container')
 var chooseDestinationDisplay = document.querySelector('.destinations-grid')
-var requestTripDisplay = document.querySelector('.request-trip-container')
-var loginForm = document.querySelector('.login-form-container')
-var returnHomeFromDestinationsButton = document.querySelector('.exit-destination-btn')
-var locationDisplay = document.querySelector('.location-container')
+
+// new trip confirmation
 var displayNewTripContainer = document.querySelector('.display-new-trip-container')
+var locationDisplay = document.querySelector('.location-container')
+
+
+var returnHomeFromDestinationsButton = document.querySelector('.exit-destination-btn')
 
 // FUNCTIONS:
 
 const displayTripDetails = (totalTripDetails) => {
-    
     totalTripDetails.map((trip) => {
         tripDetailsDisplay.innerHTML += `
     <div class='destination-container'>
@@ -45,21 +60,57 @@ const displayYearExpenses = (totalTripDetails) => {
     totalCostDisplay.innerText = `You've spent $${totalCost} on travel this year.`
 }
 
-const renderDashboard = (totalTripDetails) => {
+const returnHome = () => {
+    pastTripDashboard.classList.remove('hidden')
+    requestTripDisplay.classList.add('hidden')
+}
+
+const removeLoginForm = () => {
+    loginForm.classList.add('hidden')
+}
+
+const renderPastTripsDashboard = (totalTripDetails) => {
+    travelerMenu.classList.add('hidden')
+    pastTripDashboard.classList.remove('hidden')  
     displayTripDetails(totalTripDetails)
-    displayYearExpenses(totalTripDetails)
+    displayYearExpenses(totalTripDetails)     
 }
 
-const displayTravelerDashboard = (totalTripDetails) => {
+const renderPendingTrips = (totalTripDetails) => {
+    travelerMenu.classList.add('hidden')
+    pendingTripDashboard.classList.remove('hidden')
+    displayPendingTrips(totalTripDetails)
+}
+
+const renderMenu = () => {
+    travelerMenu.classList.remove('hidden')
     travelQuote.classList.add('hidden')
-    tripDashboard.classList.remove('hidden')
-    renderDashboard(totalTripDetails)
 }
 
-const toggleDestinations = (allDestinations) => {
-    tripDashboard.classList.add('hidden')
+// const displayTravelerDashboard = (totalTripDetails) => {
+    // 
+    // renderDashboard(totalTripDetails)
+// }
+// 
+const toggleDestinations = () => {
+    travelerMenu.classList.add('hidden')
     destinationContainer.classList.remove('hidden')
 
+    // displayDestinations(allDestinations)
+}
+
+const renderDestinationsFromPastTrips = (allDestinations) => {
+    pastTripDashboard.classList.add('hidden') 
+    destinationContainer.classList.remove('hidden')
+    chooseDestinationDisplay.classList.remove('hidden')
+    displayDestinations(allDestinations)
+}
+
+
+const renderDestinationsFromPendingTrips = (allDestinations) => {
+    pendingTripDashboard.classList.add('hidden')
+    destinationContainer.classList.remove('hidden')
+    chooseDestinationDisplay.classList.remove('hidden') 
     displayDestinations(allDestinations)
 }
 
@@ -78,20 +129,29 @@ const displayDestinations = (allDestinations) => {
     });
 }
 
+
 const returnHomeFromDestinations = () => {
-    tripDashboard.classList.remove('hidden')
+    travelerMenu.classList.remove('hidden')
     chooseDestinationDisplay.classList.add('hidden')
     destinationContainer.classList.add('hidden')
 }
 
+const returnHomeFromRequestForm = () => {
+
+    travelerMenu.classList.remove('hidden')
+    requestTripDisplay.classList.add('hidden')
+}
+
+
 const displayRequestTripForm = () => {
     destinationContainer.classList.add('hidden')
+    travelerMenu.classList.add('hidden')
     requestTripDisplay.classList.remove('hidden')
 }
 
+
 const displayDestinationImage = (destinationId, allDestinations) => {
     let destinationInfo = getDestination(destinationId, allDestinations)
-    console.log(destinationInfo)
     
     locationDisplay.innerHTML = `
     <div class="location-title-container">
@@ -103,22 +163,14 @@ const displayDestinationImage = (destinationId, allDestinations) => {
     </div>
     `
 }
-
-const returnHome = () => {
-    tripDashboard.classList.remove('hidden')
-    requestTripDisplay.classList.add('hidden')
-}
-
-const removeLoginForm = () => {
-    loginForm.classList.add('hidden')
-}
-
 const displayNewTrip = (currentTravelerTotalTripInfo) => {
-    let latestTrip = currentTravelerTotalTripInfo.reverse()
+    let copy = currentTravelerTotalTripInfo.map((trip) => trip)
+
+    let latestTrip = copy.reverse()
 
     displayNewTripContainer.classList.remove('hidden')
     requestTripDisplay.classList.add('hidden')
-    tripDashboard.classList.add('hidden')
+    pastTripDashboard.classList.add('hidden')
 
     displayNewTripContainer.innerHTML = `
     <div class="new-trip-title-container">
@@ -132,18 +184,47 @@ const displayNewTrip = (currentTravelerTotalTripInfo) => {
     <div class="new-trip-image-container">
         <img class="new-trip-image" src='${latestTrip[0].image}' alt='${latestTrip[0].alt}'>
     </div>
-
     `
+}
+
+
+const displayPendingTrips = (currentTravelerTotalTripInfo) => {
+    let pendingTrips = getPendingTrips(currentTravelerTotalTripInfo)
+
+    pendingTrips.map((trip) => {
+        pendingTripDetailsDisplay.innerHTML += `
+    <div class='destination-container'>
+        <p class="destination-name trip">${trip.location}</p>
+        <p class="trip detail">Date: ${trip.startDate}</p>
+        <p class="trip detail">Number of Days: ${trip.tripDuration}</p>
+        <p class="trip detail">Group Size: ${trip.numberOfTravelers} Travelers</p>
+        <p class="trip detail">Status: ${trip.tripStatus}</p>
+        <p class="trip detail">Airfare: ${trip.flightCost}</p>
+        <p class="trip detail">Lodging: ${trip.lodgingCost}</p>
+        <p class="trip detail">Total Cost: ${trip.totalCost}</p>
+    </div>
+    `
+    });
+
+
 }
 
 // EXPORTS:
 export {
     displayRequestTripForm,
-    displayTravelerDashboard,
+    // displayTravelerDashboard,
+    renderPastTripsDashboard,
+    renderPendingTrips,
     returnHome,
     removeLoginForm,
     toggleDestinations,
     returnHomeFromDestinations,
     displayDestinationImage,
-    displayNewTrip
+    displayNewTrip,
+    displayPendingTrips,
+    renderMenu,
+    displayDestinations,
+    returnHomeFromRequestForm,
+    renderDestinationsFromPastTrips,
+    renderDestinationsFromPendingTrips
 }

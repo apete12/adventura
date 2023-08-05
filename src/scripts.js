@@ -7,17 +7,25 @@ import {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
+    sortTripStatus
 } from './trips-data';
 
 import {
     displayRequestTripForm,
     toggleDestinations,
-    displayTravelerDashboard,
+    renderMenu,
+    // displayTravelerDashboard,
+    renderPastTripsDashboard,
     returnHomeFromDestinations,
     returnHome,
     removeLoginForm,
     displayDestinationImage,
-    displayNewTrip
+    displayNewTrip,
+    displayDestinations,
+    renderPendingTrips,
+    returnHomeFromRequestForm, 
+    renderDestinationsFromPastTrips,
+    renderDestinationsFromPendingTrips,
 } from './domUpdates';
 
 // GLOBAL VARIABLES:
@@ -38,29 +46,64 @@ var newTripData;
 var bookTripBtn = document.querySelector('.book-trip-btn');
 var loginBtn = document.querySelector('.login-btn');
 var returnHomeFromDestinationsBtn = document.querySelector('.exit-destination-btn');
+var bookTripFromPastTripsBtn = document.querySelector('.book-trip-past-trips-btn')
+var bookTripFromPendingBtn = document.querySelector('.book-trip-from-pending-btn')
+var returnHomeFromForm = document.querySelector('.return-home-from-form-btn')
 var returnHomeBtn = document.querySelector('.return-home-btn');
 var requestTripForm = document.querySelector('.request-trip-form');
+var seePastTripsBtn = document.querySelector('.past-trips-btn')
+var seePendingTripsBtn = document.querySelector('.pending-trips-btn')
 var destinationGrid = document.querySelector('.destinations-grid');
 
 // EVENT LISTENERS:
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
+    removeLoginForm(e)
+    renderMenu(e)
     loadTravelerData(e)
 });
 
 bookTripBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    toggleDestinations(allDestinations)
+    toggleDestinations()
+    displayDestinations(allDestinations)
 });
 
 returnHomeFromDestinationsBtn.addEventListener('click', () => {
     returnHomeFromDestinations()
 });
 
-returnHomeBtn.addEventListener('click', () => {
-    returnHome()
+seePastTripsBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    renderPastTripsDashboard(currentTravelerTotalTripInfo)
+})
+
+seePendingTripsBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    renderPendingTrips(currentTravelerTotalTripInfo)
+})
+
+returnHomeFromForm.addEventListener('click', (e) => {
+    e.preventDefault()
     newDestinationId = ''
-});
+    console.log(newDestinationId)
+    returnHomeFromRequestForm()
+})
+
+bookTripFromPastTripsBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    renderDestinationsFromPastTrips(allDestinations)
+})
+
+bookTripFromPendingBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    renderDestinationsFromPendingTrips(allDestinations)
+})
+
+// returnHomeBtn.addEventListener('click', () => {
+    // returnHome()
+    // newDestinationId = ''
+// });
 
 destinationGrid.addEventListener('click', (e) => {
     let destinationButton = e.target
@@ -105,8 +148,6 @@ function loadTravelerData() {
             return fetchDestinationData();
         })
         .then(destinationData => {
-            removeLoginForm()
-            displayTravelerDashboard(currentTravelerTotalTripInfo)
         })
         .catch(error => {
             console.error('Error initializing app:', error);
@@ -125,6 +166,7 @@ function loadUpdatedTravelData() {
     .then(destinationData => {
         console.log(currentTravelerTotalTripInfo)
         displayNewTrip(currentTravelerTotalTripInfo)
+        // sortTripStatus(currentTravelerTotalTripInfo)
     })
     .catch(error => {
         console.error('Error initializing app:', error);
@@ -155,6 +197,7 @@ function fetchDestinationData() {
         .then(response => response.json())
         .then(data => {
              allDestinations = data
+            //  console.log(allDestinations)
              currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
              currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
             return allDestinations; 
