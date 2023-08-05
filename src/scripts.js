@@ -1,5 +1,6 @@
 // IMPORTS:
 import './css/styles.css';
+const dayjs = require('dayjs')
 
 import {
     getUserData,
@@ -30,18 +31,19 @@ var currentTravelersTrips;
 var currentTravelersDestinations;
 var currentTravelerTotalTripInfo;
 var allDestinations;
+var allTrips;
+var newDestinationId;
+var newTripData;
 
-var bookTripButton = document.querySelector('.book-trip-btn')
-var loginButton = document.querySelector('.login-btn')
-var returnHomeFromDestinationsButton = document.querySelector('.exit-destination-btn')
-var returnHomeButton = document.querySelector('.return-home-btn')
-
+var bookTripBtn = document.querySelector('.book-trip-btn')
+var loginBtn = document.querySelector('.login-btn')
+var returnHomeFromDestinationsBtn = document.querySelector('.exit-destination-btn')
+var returnHomeBtn = document.querySelector('.return-home-btn')
 var requestTripForm = document.querySelector('.request-trip-form')
-
 var destinationGrid = document.querySelector('.destinations-grid')
 
 // EVENT LISTENERS:
-loginButton.addEventListener('click', (e) => {
+loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
     fetchTravelerData(e)
     fetchTripData(e)
@@ -49,17 +51,16 @@ loginButton.addEventListener('click', (e) => {
     removeLoginForm()
 })
 
-bookTripButton.addEventListener('click', (e) => {
+bookTripBtn.addEventListener('click', (e) => {
     e.preventDefault()
     toggleDestinations(allDestinations)
 })
 
-returnHomeFromDestinationsButton.addEventListener('click', () => {
+returnHomeFromDestinationsBtn.addEventListener('click', () => {
     returnHomeFromDestinations()
 })
 
-
-returnHomeButton.addEventListener('click', () => {
+returnHomeBtn.addEventListener('click', () => {
     returnHome()
     newDestinationId = ''
 })
@@ -69,49 +70,67 @@ destinationGrid.addEventListener('click', (e) => {
     let destinationButton = e.target
 
     if (destinationButton.id === 'lets-go-btn') {
-        let newDestinationId = destinationButton.parentElement.getAttribute('id')
+        newDestinationId = destinationButton.parentElement.getAttribute('id')
         displayRequestTripForm()
         displayDestinationImage(newDestinationId, allDestinations)
+
     }
 
 })
 
-// requestTripForm.addEventListener('click', (e) => {
-    // e.preventDefault()
-// 
-    // let targetSubmitBtn = e.target
-    // if (targetSubmitBtn.id === 'submit-request-btn') {
-        // let startDate = document.getElementById("start-date-input").value
-        // let duration = document.getElementById("duration-input").value
-        // let numTravelers = document.getElementById("travelers-input").value
-// 
-        // let newTripData = {
-            // id: 
-            // userID: currentTraveler.id,
-            // destinationID: destination.id,
-            // startDate: numTravelers,
-            // duration: numTravelers,
-            // numTravelers: numTravelers,
-            // status: 'pending'
-        // }
-    // }
-// })
-// 
-// {
-    // id: <number>, 
-    /* userID: <number>,  */
-    /* destinationID: <number>,  */
-    /* travelers: <number>,  */
-    /* date: <string 'YYYY/MM/DD'>,  */
-    /* duration: <number>,  */
-    /* status: <string 'approved' or 'pending'>,  */
-    /* suggestedActivities: <array of strings> */
-        // }
+requestTripForm.addEventListener('click', (e) => {
+    e.preventDefault()
+
+    let targetSubmitBtn = e.target
+    if (targetSubmitBtn.id === 'submit-request-btn') {
+        let startDate = document.getElementById("start-date-input").value
+        let duration = document.getElementById("duration-input").value
+        let numTravelers = document.getElementById("travelers-input").value
+        
+        newTripData = {
+            id: allTrips.length +1,
+            userID: currentTraveler.id,
+            destinationID: parseInt(newDestinationId),
+            travelers: parseInt(numTravelers),
+            date: dayjs(startDate).format('YYYY/MM/DD'),
+            duration: parseInt(duration),
+            status: 'pending',            
+            suggestedActivities: [],
+        }
+
+        postNewtrip(newTripData)
+
+    }
+})
+
+'Trip with id 204 successfully posted'
+
+
+
+
+const postNewtrip = (newTripData) => {
+    return fetch(`http://localhost:3001/api/v1/trips`, {
+        method: "POST",
+        body: JSON.stringify(newTripData),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        fetchTravelerData()
+        fetchTripData()
+        fetchDestinationData()
+    })
+  }
+
+
 
 
 
 // FETCH REQUESTS:
-const fetchTravelerData = (e) => {
+const fetchTravelerData = () => {
     return fetch(`http://localhost:3001/api/v1/travelers`)
     .then(res => res.json())
     .then(data => {
@@ -119,15 +138,16 @@ const fetchTravelerData = (e) => {
     })
 }
 
-const fetchTripData = (e) => {
+const fetchTripData = () => {
     return fetch(`http://localhost:3001/api/v1/trips`)
     .then(res => res.json())
     .then(data => {
+        allTrips = data.trips
         currentTravelersTrips = getTripsList(currentTraveler.id, data.trips)
     })
 }
 
-const fetchDestinationData = (e) => {
+const fetchDestinationData = () => {
     return fetch(`http://localhost:3001/api/v1/destinations`)
     .then(res => res.json())
     .then(data => {
@@ -135,8 +155,7 @@ const fetchDestinationData = (e) => {
         currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
         currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
         displayTravelerDashboard(currentTravelerTotalTripInfo)
-        // displayDestinations(allDestinations)
-        // console.log(currentTravelersTrips)
+       
     })
 }
 
