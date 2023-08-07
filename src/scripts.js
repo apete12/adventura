@@ -7,7 +7,6 @@ import {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
-    sortTripStatus
 } from './trips-data';
 
 import {
@@ -194,7 +193,6 @@ function loadUpdatedTravelData() {
     .then(destinationData => {
         console.log(currentTravelerTotalTripInfo)
         renderNewTrip(currentTravelerTotalTripInfo)
-        // sortTripStatus(currentTravelerTotalTripInfo)
     })
     .catch(error => {
         console.error('Error initializing app:', error);

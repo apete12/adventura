@@ -4,6 +4,7 @@ import {
     getTotalTravelCost,
     getDestination, 
     getPendingTrips,
+    getApprovedTrips
 } from './trips-data'
 
 // QUERY SELECTORS:
@@ -33,8 +34,28 @@ var locationDisplay = document.querySelector('.location-container')
 
 // FUNCTIONS:
 
+// const renderTripDetails = (totalTripDetails) => {
+    // totalTripDetails.map((trip) => {
+        // tripDetailsDisplay.innerHTML += `
+    // <div class='destination-container'>
+        // <p class="destination-name trip">${trip.location}</p>
+        // <p class="trip detail">Date: ${trip.startDate}</p>
+        // <p class="trip detail">Number of Days: ${trip.tripDuration}</p>
+        // <p class="trip detail">Group Size: ${trip.numberOfTravelers} Travelers</p>
+        // <p class="trip detail">Status: ${trip.tripStatus}</p>
+        // <p class="trip detail">Airfare: ${trip.flightCost}</p>
+        // <p class="trip detail">Lodging: ${trip.lodgingCost}</p>
+        // <p class="trip detail">Total Cost: ${trip.totalCost}</p>
+    // </div>
+    // `
+    // });
+// }
+
 const renderTripDetails = (totalTripDetails) => {
-    totalTripDetails.map((trip) => {
+    let approvedTrips = getApprovedTrips(totalTripDetails)
+    tripDetailsDisplay.innerHTML = ''
+
+    approvedTrips.map((trip) => {
         tripDetailsDisplay.innerHTML += `
     <div class='destination-container'>
         <p class="destination-name trip">${trip.location}</p>
@@ -190,6 +211,8 @@ const renderNewTrip = (currentTravelerTotalTripInfo) => {
 
 const renderPendingTrips = (currentTravelerTotalTripInfo) => {
     let pendingTrips = getPendingTrips(currentTravelerTotalTripInfo)
+
+    pendingTripDetailsDisplay.innerHTML = ''
 
     pendingTrips.map((trip) => {
         pendingTripDetailsDisplay.innerHTML += `
