@@ -31,7 +31,12 @@
       <div class="travel-quote-placeholder-container">
         <h2>adventura awaits</h2>
       </div>
-      <div class="my-trips-container hidden">
+      <div class="traveler-menu-container hidden">
+        <button class="past-trips-btn">SEE PAST TRIPS</button>
+        <button class="pending-trips-btn">SEE PENDING TRIPS</button>
+        <button class="book-trip-btn">BOOK A NEW ADVENTURE</button>
+      </div>
+      <div class="my-past-trips-container hidden">
         <h2 class="all-trips heading">WHERE YOU'VE ADVENTURED:</h2>
         <div class="all-trips-container">
           <div class="trip-details-display"></div>
@@ -39,8 +44,30 @@
         <div class="trip-cost-container">
           <div class="total-cost-display"></div>
         </div>
-        <div class="book-trip-btn-container">
-          <button class="book-trip-btn">BOOK A NEW ADVENTURE</button>
+        <div class="btn-container-past-trips">
+          <div class="return-home-container">
+            <button class="return-home-from-past-btn">RETURN HOME</button>
+          </div>
+          <div class="book-trip-btn-container">
+            <button class="book-trip-past-trips-btn">BOOK A NEW ADVENTURE</button>
+          </div>
+        </div>
+      </div>
+      <div class="my-trips-pending-container hidden">
+        <h2 class="all-trips heading">WHERE YOU'RE ADVENTURING:</h2>
+        <div class="all-trips-container">
+          <div class="pending-trip-details-display"></div>
+        </div>
+        <div class="trip-cost-container">
+          <div class="total-cost-display"></div>
+        </div>
+        <div class="btn-container-pending-trips">
+          <div class="return-home-container">
+            <button class="return-home-from-pending-btn">RETURN HOME</button>
+          </div>
+          <div class="book-trip-btn-container">
+            <button class="book-trip-from-pending-btn">BOOK A NEW ADVENTURE</button>
+          </div>
         </div>
       </div>
       <div class="display-destination-container hidden">
@@ -48,8 +75,10 @@
           <h2 class="choose-destination heading">CHOOSE YOUR NEXT ADVENTURE SPOT:</h2>
         </div>
         <article class="destinations-grid"></article>
-        <div class="exit-destination-btn-container">
-          <button class="exit-destination-btn">RETURN HOME</button>
+        <div class="btn-container-destinations">
+          <div class="exit-destination-btn-container">
+            <button class="exit-destination-btn">RETURN HOME</button>
+          </div>
         </div>
       </div>
       <div class="request-trip-container hidden">
@@ -70,9 +99,9 @@
               <input id='travelers-input' type="number" name="travelers" placeholder="number of travelers" value="" min="1" max = "100">
             </div>
           </div>
-          <div class="buttons-container">
+          <div class="btn-container-request-form">
             <div class="return-home-container">
-              <button class="return-home-btn">RETURN HOME</button>
+              <button class="return-home-from-form-btn">RETURN HOME</button>
             </div>
             <div class="submit-request-container">
               <button id="submit-request-btn" class="submit-request-btn">SUBMIT</button>

@@ -10,15 +10,28 @@ import {
 } from './trips-data';
 
 import {
-    displayRequestTripForm,
-    toggleDestinations,
-    displayTravelerDashboard,
-    returnHomeFromDestinations,
-    returnHome,
+// LOGIN
     removeLoginForm,
-    displayDestinationImage,
-    displayNewTrip
+    displayMenu,
+// DISPLAY ON DOM
+    displayRequestTripForm,
+    displayDestinations,
+    displayPastTripsDashboard,
+    displayPendingTrips,
+    displayDestinationsFromPastTrips,
+    displayDestinationsFromPendingTrips,
+    displayDestinationsFromMenu,
+// RENDER INNER HTML
+    renderNewTrip,
+    renderDestinationImage,
+// RETURN HOME
+    returnHomeFromPast,
+    returnHomeFromDestinations,
+    returnHomeFromRequestForm,
+    returnHomeFromPending,
+    returnHomeFromNewTrip
 } from './domUpdates';
+
 
 // GLOBAL VARIABLES:
 var currentTraveler = {
@@ -35,32 +48,89 @@ var allTrips;
 var newDestinationId;
 var newTripData;
 
-var bookTripBtn = document.querySelector('.book-trip-btn');
+// QUERY SELECTORS
 var loginBtn = document.querySelector('.login-btn');
+
+var returnHomeFromPastBtn = document.querySelector('.return-home-from-past-btn')
 var returnHomeFromDestinationsBtn = document.querySelector('.exit-destination-btn');
-var returnHomeBtn = document.querySelector('.return-home-btn');
+var returnHomeFromForm = document.querySelector('.return-home-from-form-btn');
+var returnHomeFromPendingBtn = document.querySelector('.return-home-from-pending-btn')
+var displayNewTripContainer = document.querySelector('.display-new-trip-container')
+
+var bookTripBtn = document.querySelector('.book-trip-btn');
+var bookTripFromPastTripsBtn = document.querySelector('.book-trip-past-trips-btn');
+var bookTripFromPendingBtn = document.querySelector('.book-trip-from-pending-btn');
+
 var requestTripForm = document.querySelector('.request-trip-form');
+var seePastTripsBtn = document.querySelector('.past-trips-btn');
+var seePendingTripsBtn = document.querySelector('.pending-trips-btn');
 var destinationGrid = document.querySelector('.destinations-grid');
+
+
 
 // EVENT LISTENERS:
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
+    removeLoginForm(e)
+    displayMenu(e)
     loadTravelerData(e)
 });
 
 bookTripBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    toggleDestinations(allDestinations)
+    displayDestinationsFromMenu()
+    displayDestinations(allDestinations)
 });
 
 returnHomeFromDestinationsBtn.addEventListener('click', () => {
     returnHomeFromDestinations()
 });
 
-returnHomeBtn.addEventListener('click', () => {
-    returnHome()
+seePastTripsBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    displayPastTripsDashboard(currentTravelerTotalTripInfo)
+})
+
+seePendingTripsBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    displayPendingTrips(currentTravelerTotalTripInfo)
+})
+
+returnHomeFromPendingBtn.addEventListener('click', (e) => {
+    returnHomeFromPending()
+})
+
+returnHomeFromPastBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    returnHomeFromPast()
+
+})
+
+returnHomeFromForm.addEventListener('click', (e) => {
+    e.preventDefault()
     newDestinationId = ''
-});
+    console.log(newDestinationId)
+    returnHomeFromRequestForm()
+})
+
+bookTripFromPastTripsBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    displayDestinationsFromPastTrips(allDestinations)
+})
+
+bookTripFromPendingBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    displayDestinationsFromPendingTrips(allDestinations)
+})
+
+displayNewTripContainer.addEventListener('click', (e) => {
+    e.preventDefault()
+    let returnHomeFromNewBtn = e.target
+
+    if (returnHomeFromNewBtn.id === 'return-home-from-new-btn') {
+        returnHomeFromNewTrip()
+    } 
+})
 
 destinationGrid.addEventListener('click', (e) => {
     let destinationButton = e.target
@@ -68,7 +138,7 @@ destinationGrid.addEventListener('click', (e) => {
     if (destinationButton.id === 'lets-go-btn') {
         newDestinationId = destinationButton.parentElement.getAttribute('id')
         displayRequestTripForm()
-        displayDestinationImage(newDestinationId, allDestinations)
+        renderDestinationImage(newDestinationId, allDestinations)
     }
 });
 
@@ -105,8 +175,6 @@ function loadTravelerData() {
             return fetchDestinationData();
         })
         .then(destinationData => {
-            removeLoginForm()
-            displayTravelerDashboard(currentTravelerTotalTripInfo)
         })
         .catch(error => {
             console.error('Error initializing app:', error);
@@ -124,7 +192,7 @@ function loadUpdatedTravelData() {
     })
     .then(destinationData => {
         console.log(currentTravelerTotalTripInfo)
-        displayNewTrip(currentTravelerTotalTripInfo)
+        renderNewTrip(currentTravelerTotalTripInfo)
     })
     .catch(error => {
         console.error('Error initializing app:', error);
@@ -155,6 +223,7 @@ function fetchDestinationData() {
         .then(response => response.json())
         .then(data => {
              allDestinations = data
+            //  console.log(allDestinations)
              currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
              currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
             return allDestinations; 
