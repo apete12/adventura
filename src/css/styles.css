@@ -8,7 +8,6 @@ body {
 }
 
 /* BUTTONS */
-
 .btn-container-past-trips {
   display: flex;
   flex-direction: row;
@@ -95,6 +94,7 @@ body {
   display: flex;
   justify-content: space-between;
   height: 150px;
+  margin-top: 20px;
   background: rgba(225, 225, 225, 0.298);
 }
 
@@ -107,7 +107,20 @@ body {
   align-items: center;
   font-family:  'Cormorant Garamond', serif;
   font-size: 40px;
-  margin-left: 15px;
+  margin-left: 30px;
+  margin-bottom: 40px
+}
+
+.announcements-login-container{
+  display: flex;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+  padding: 5px;
+  
 }
 
 .login-form-container {
@@ -117,6 +130,17 @@ body {
   margin-right: 10px;
   padding: 5px;
   
+}
+
+.login-error-container {
+  display: flex;
+}
+
+.error-handling-login {
+  display: flex;
+  padding: 14px;
+  font-family:  'Cormorant Garamond', serif;
+  font-size: 17px;
 }
 
 .username-container,
@@ -145,7 +169,6 @@ label {
   padding-top: 2px;
 }
 
-
 #username-input,
 #password-input,
 #duration-input,
@@ -169,6 +192,27 @@ input[type=text] {
 h1 {
   margin: 0px;
   font-size: 30px;
+}
+
+.announcements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 55px;
+}
+
+.welcome-user {
+  display: flex;
+  margin-right: 20px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+.error-handling {
+  display: flex;
+  margin-right: 20px;
+  margin-top: 0px;
 }
 
 /* DASHBOARD */

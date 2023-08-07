@@ -7,9 +7,16 @@ import {
     getApprovedTrips
 } from './trips-data'
 
+import {
+    getUserFirstName
+} from './user-data'
+
 // QUERY SELECTORS:
 var loginForm = document.querySelector('.login-form-container')
+var announcements = document.querySelector('.announcements')
 var travelQuote = document.querySelector('.travel-quote-placeholder-container')
+var loginErrorHandling = document.querySelector('.error-handling-login')
+
 
 // traveler menu 
 var travelerMenu = document.querySelector('.traveler-menu-container')
@@ -31,6 +38,30 @@ var chooseDestinationDisplay = document.querySelector('.destinations-grid')
 // new trip confirmation
 var displayNewTripContainer = document.querySelector('.display-new-trip-container')
 var locationDisplay = document.querySelector('.location-container')
+
+
+// DISPLAY LOGIN ERRORS
+const displayEmptyInputError = () => {
+    loginErrorHandling.classList.remove('hidden')
+    loginErrorHandling.innerText = 'Please enter username and password.'
+}
+
+const displayIncorrectPasswordError = () => {
+    loginErrorHandling.classList.remove('hidden')
+    loginErrorHandling.innerText = 'Please enter correct password.'
+}
+
+const displayIncorrectUsernameError = () => {
+    loginErrorHandling.classList.remove('hidden')
+    loginErrorHandling.innerText = 'Please enter correct username.'
+}
+
+// WELCOME USER *NAME 
+// const displayUserName = (userId, userList) => {
+    // let firstName = getUserFirstName(userId, userList)
+    // return firstName
+// }
+
 
 // FUNCTIONS:
 const renderTripDetails = (totalTripDetails) => {
@@ -88,6 +119,7 @@ const returnHomeFromNewTrip = () => {
 
 const removeLoginForm = () => {
     loginForm.classList.add('hidden')
+    announcements.classList.remove('hidden')
 }
 
 const displayPastTripsDashboard = (totalTripDetails) => {
@@ -217,6 +249,12 @@ export {
   // LOGIN
   removeLoginForm,
   displayMenu,
+//   displayUserName,
+
+// LOGIN ERRORS
+displayEmptyInputError, 
+displayIncorrectPasswordError,
+displayIncorrectUsernameError,
 
   // DISPLAY ON DOM
   displayRequestTripForm,

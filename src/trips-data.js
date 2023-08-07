@@ -1,8 +1,3 @@
-const getUserData = (userId, array) => {
-    return array.find((traveler) => traveler.id === userId)
-
-};
-
 const getTripsList = (userId, array) => {
     return array.filter((trip) => trip.userID === userId)
 };
@@ -93,9 +88,7 @@ const getPendingTrips = (currentTravelerTotalTripInfo) => {
     return pendingTrips
 }
 
-
 export {
-    getUserData,
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
