@@ -74,7 +74,7 @@ const getTotalTravelCost = (totalTripDetails) => {
 };
 
 const getDestination = (destinationId, allDestinations) => {
-    let destinationInfo = allDestinations.destinations.find((destination) => destination.id == destinationId)
+    let destinationInfo = allDestinations.find((destination) => destination.id == destinationId)
     return destinationInfo
 };
 

@@ -169,7 +169,7 @@ const displayDestinationsFromPendingTrips = (allDestinations) => {
 }
 
 const displayDestinations = (allDestinations) => {
-    allDestinations.destinations.map((location) => {
+    allDestinations.map((location) => {
         chooseDestinationDisplay.innerHTML += `
     <div class='destination-details' id='${location.id}'>
         <div class='destination-location-container' id='${location.id}'>

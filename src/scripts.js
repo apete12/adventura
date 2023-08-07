@@ -13,6 +13,10 @@ import {
 } from './user-data'
 
 import {
+    promises
+} from './api-calls'
+
+import {
 // LOGIN
     removeLoginForm,
     displayMenu,
@@ -41,7 +45,6 @@ import {
     returnHomeFromPending,
     returnHomeFromNewTrip
 } from './domUpdates';
-
 
 // GLOBAL VARIABLES:
 
@@ -77,12 +80,20 @@ var seePastTripsBtn = document.querySelector('.past-trips-btn');
 var seePendingTripsBtn = document.querySelector('.pending-trips-btn');
 var destinationGrid = document.querySelector('.destinations-grid');
 
-
-
 // EVENT LISTENERS:
+window.addEventListener('load', () => {
+    Promise.all(promises)
+    .then(results => {
+        allTravelers = results[0].travelers
+        allTrips = results[1].trips
+        allDestinations = results[2].destinations
+    }).catch(error => {
+        console.error('Error initializing app:', error);
+    });
+})
+
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
-
     let username = usernameInput.value
     let password = passwordInput.value
 
@@ -98,12 +109,12 @@ loginBtn.addEventListener('click', (e) => {
         displayIncorrectUsernameError()
 
     } else {
+        currentTravelersTrips = getTripsList(currentTravelerId, allTrips)
+        currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations)
+        currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations)
         removeLoginForm(e)
         displayMenu(e)
-        loadTravelerData(e)
-        // displayUserName(currentTravelerId, allTravelers)
     }
-    
 });
 
 bookTripBtn.addEventListener('click', (e) => {
@@ -119,38 +130,37 @@ returnHomeFromDestinationsBtn.addEventListener('click', () => {
 seePastTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
     displayPastTripsDashboard(currentTravelerTotalTripInfo)
-})
+});
 
 seePendingTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
     displayPendingTrips(currentTravelerTotalTripInfo)
-})
+});
 
 returnHomeFromPendingBtn.addEventListener('click', (e) => {
     returnHomeFromPending()
-})
+});
 
 returnHomeFromPastBtn.addEventListener('click', (e) => {
     e.preventDefault()
     returnHomeFromPast()
-})
+});
 
 returnHomeFromForm.addEventListener('click', (e) => {
     e.preventDefault()
     newDestinationId = ''
-    console.log(newDestinationId)
     returnHomeFromRequestForm()
-})
+});
 
 bookTripFromPastTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
     displayDestinationsFromPastTrips(allDestinations)
-})
+});
 
 bookTripFromPendingBtn.addEventListener('click', (e) => {
     e.preventDefault()
     displayDestinationsFromPendingTrips(allDestinations)
-})
+});
 
 displayNewTripContainer.addEventListener('click', (e) => {
     e.preventDefault()
@@ -159,7 +169,7 @@ displayNewTripContainer.addEventListener('click', (e) => {
     if (returnHomeFromNewBtn.id === 'return-home-from-new-btn') {
         returnHomeFromNewTrip()
     } 
-})
+});
 
 destinationGrid.addEventListener('click', (e) => {
     let destinationButton = e.target
@@ -194,84 +204,22 @@ requestTripForm.addEventListener('click', (e) => {
     }
 });
 
-// LOAD TRAVELER DATA
-function loadTravelerData() {
-    // fetchTravelerDetails()
-    fetchTravelerData()
-        .then(travelerData => {
-            return fetchTripData();
-        })
-        .then(tripData => {
-            return fetchDestinationData();
-        })
-        .then(destinationData => {
-            
-        })
-        .catch(error => {
-            console.error('Error initializing app:', error);
-        });
-};
 
 // LOAD UPDATED TRAVELER DATA
-function loadUpdatedTravelData() {
-    // fetchTravelerDetails()
-    fetchTravelerData()
-    .then(travelerData => {
-        return fetchTripData();
-    })
-    .then(tripData => {
-        return fetchDestinationData();
-    })
-    .then(destinationData => {
-        console.log(currentTravelerTotalTripInfo)
+const loadUpdatedTravelData = () => {
+    Promise.all(promises)
+    .then(results => {
+        allTravelers = results[0].travelers
+        allTrips = results[1].trips
+        allDestinations = results[2].destinations
         renderNewTrip(currentTravelerTotalTripInfo)
     })
+
     .catch(error => {
         console.error('Error initializing app:', error);
-    });
-}
-
-// FETCH
-
-// function fetchTravelerDetails(currentTravelerId) {
-    // return fetch(`http://localhost:3001/api/v1/${currentTravelerId}`)
-        // .then(response => response.json())
-        // .then(data => {
-            // currentTravelerInfo = data
-            // return currentTravelerInfo;
-        // });
-// };
-// 
-function fetchTravelerData() {
-    return fetch(`http://localhost:3001/api/v1/travelers`)
-        .then(response => response.json())
-        .then(data => {
-            allTravelers = data
-            return allTravelers;
-        });
+    })
 };
 
-function fetchTripData() {
-    return fetch(`http://localhost:3001/api/v1/trips`)
-        .then(response => response.json())
-        .then(data => {
-            allTrips = data.trips
-            currentTravelersTrips = getTripsList(currentTravelerId, data.trips)
-            return allTrips; 
-        });
-};
-
-function fetchDestinationData() {
-    return fetch(`http://localhost:3001/api/v1/destinations`)
-        .then(response => response.json())
-        .then(data => {
-             allDestinations = data
-             currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
-             currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
-             console.log(currentTravelerTotalTripInfo)
-            return allDestinations; 
-        });
-};
 
 // POST NEW TRIP:
 const postNewtrip = (newTripData) => {
