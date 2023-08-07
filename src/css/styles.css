@@ -7,6 +7,90 @@ body {
   background-size: cover;
 }
 
+/* BUTTONS */
+
+.btn-container-past-trips {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  justify-content: space-between;
+  padding-top: 0px;
+}
+
+.btn-container-pending-trips{
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  justify-content: space-between;
+  padding-top: 19px;
+}
+
+.btn-container-destinations{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  padding-top: 19px;
+}
+
+.btn-container-request-form{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.btn-container-new-trips {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  padding-bottom: 5px;
+}
+
+.return-home-from-pending-btn,
+.return-home-from-form-btn,
+.return-home-from-past-btn,
+.return-home-from-new-btn,
+.book-trip-past-trips-btn,
+.past-trips-btn, 
+.pending-trips-btn, 
+.book-trip-btn,
+.exit-destination-btn,
+.submit-request-btn,
+.return-home-btn,
+.book-trip-from-pending-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.return-home-from-new-btn {
+  margin-top: 0px;
+  padding-top: 2px;
+}
+
+.login-btn {
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  justify-content: center;
+  font-size: 20px;
+  width: 100%;
+}
+
+.lets-go-btn {
+  margin-top: 5px;
+  font-family:'Cormorant Garamond', serif;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* NAV BAR */
 .nav-bar {
   display: flex;
   justify-content: space-between;
@@ -64,19 +148,12 @@ input[type=text] {
   font: black;
 }
 
-.login-btn {
-  cursor: pointer;
-  font-family:  'Cormorant Garamond', serif;
-  justify-content: center;
-  font-size: 20px;
-  width: 100%;
-}
-
 h2 {
   margin: 0px;
   font-size: 30px;
 }
 
+/* DASHBOARD */
 .dashboard-container {
   display: flex;
   width: 100%;
@@ -92,6 +169,7 @@ h2 {
   width: 50vw;
   font-family: 'Cormorant Garamond', serif;
   background: rgba(225, 225, 225, 0.791);
+  align-items: center;
 }
 
 .travel-quote-placeholder-container{
@@ -107,35 +185,14 @@ h2 {
   font-size: 20px;
 }
 
-.my-past-trips-container{
+/* TRAVELER MENU */
+
+.traveler-menu-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  width: 45%;
   height: 100%
-}
-
-.all-trips-container{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 95%;
-  height: 60%;
-  overflow-x: scroll;
-  visibility: visible;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 15px;
-  cursor: w-resize;
-}
-
-.trip-details-display {
-  display: flex;
-  margin-bottom: 18px;
-}
-
-.pending-trip-details-display{
-  display: flex;
-  margin-bottom: 18px;
 }
 
 .destination-container{
@@ -158,26 +215,61 @@ h2 {
   margin-bottom: 5px;
 }
 
-.book-trip-btn-container,
-.trip-cost-container{
-  display: flex;
-}
-
 .total-cost-display{
   display: flex;
   font-size: 20px;
   margin: 0px;
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
 
-.book-trip-btn,
-.exit-destination-btn,
-.submit-request-btn,
-.return-home-btn {
-  cursor: pointer;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
+/* PAST TRIPS DASHBOARD */
+.my-past-trips-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%
+}
+
+.trip-details-display {
+  display: flex;
+  margin-bottom: 18px;
+}
+
+
+.all-trips-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 95%;
+  height: 60%;
+  overflow-x: scroll;
+  visibility: visible;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 15px;
+  cursor: w-resize;
+}
+
+.my-trips-pending-container{
+display: flex;
+flex-direction: column;
+align-items: center;
+height: 100%;
+width: 100%
+}
+
+.pending-trip-details-display{
+  display: flex;
+  margin-bottom: 18px;
+}
+
+
+/* REQUEST NEW TRIP FORM */
+.request-trip-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .request-trip-container {
@@ -243,24 +335,14 @@ h2 {
   font-size: 17px;
 }
 
-.lets-go-btn {
-  margin-top: 5px;
-  font-family:'Raleway', sans-serif;
-  font-size: 15px;
-}
-
-.request-trip-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
 
 .inputs-container {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
+
+/* CONFIRMATION DASHBOARD */
 
 .location-container {
   display: flex;
@@ -308,27 +390,6 @@ h2 {
   justify-content:center;
 }
 
-.buttons-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.exit-destination-btn-container {
-  display: flex;
-  flex-direction: row;
-  padding-top: 35px;
-  width: 100%;
-  justify-content: center;
-}
-
-.submit-request-container,
-.return-home-container {
-  display: flex;
-  flex-direction: row;
-  padding-top: 15px;
-  width: 100%;
-  justify-content: center;
-}
 
 label {
   display: flex; 
@@ -353,7 +414,7 @@ input {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 15%;
+  height: 10%;
   justify-content: center;
   align-items: center;
   margin: 0px;
@@ -404,3 +465,11 @@ input {
   height: 285px;
   width: auto;
 }
+
+
+
+
+
+
+
+

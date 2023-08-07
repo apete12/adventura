@@ -11,22 +11,28 @@ import {
 } from './trips-data';
 
 import {
-    displayRequestTripForm,
-    toggleDestinations,
-    renderMenu,
-    // displayTravelerDashboard,
-    renderPastTripsDashboard,
-    returnHomeFromDestinations,
-    returnHome,
+// LOGIN
     removeLoginForm,
-    displayDestinationImage,
-    displayNewTrip,
+    displayMenu,
+// DISPLAY ON DOM
+    displayRequestTripForm,
     displayDestinations,
-    renderPendingTrips,
-    returnHomeFromRequestForm, 
-    renderDestinationsFromPastTrips,
-    renderDestinationsFromPendingTrips,
+    displayPastTripsDashboard,
+    displayPendingTrips,
+    displayDestinationsFromPastTrips,
+    displayDestinationsFromPendingTrips,
+    displayDestinationsFromMenu,
+// RENDER INNER HTML
+    renderNewTrip,
+    renderDestinationImage,
+// RETURN HOME
+    returnHomeFromPast,
+    returnHomeFromDestinations,
+    returnHomeFromRequestForm,
+    returnHomeFromPending,
+    returnHomeFromNewTrip
 } from './domUpdates';
+
 
 // GLOBAL VARIABLES:
 var currentTraveler = {
@@ -43,29 +49,37 @@ var allTrips;
 var newDestinationId;
 var newTripData;
 
-var bookTripBtn = document.querySelector('.book-trip-btn');
+// QUERY SELECTORS
 var loginBtn = document.querySelector('.login-btn');
+
+var returnHomeFromPastBtn = document.querySelector('.return-home-from-past-btn')
 var returnHomeFromDestinationsBtn = document.querySelector('.exit-destination-btn');
-var bookTripFromPastTripsBtn = document.querySelector('.book-trip-past-trips-btn')
-var bookTripFromPendingBtn = document.querySelector('.book-trip-from-pending-btn')
-var returnHomeFromForm = document.querySelector('.return-home-from-form-btn')
-var returnHomeBtn = document.querySelector('.return-home-btn');
+var returnHomeFromForm = document.querySelector('.return-home-from-form-btn');
+var returnHomeFromPendingBtn = document.querySelector('.return-home-from-pending-btn')
+var displayNewTripContainer = document.querySelector('.display-new-trip-container')
+
+var bookTripBtn = document.querySelector('.book-trip-btn');
+var bookTripFromPastTripsBtn = document.querySelector('.book-trip-past-trips-btn');
+var bookTripFromPendingBtn = document.querySelector('.book-trip-from-pending-btn');
+
 var requestTripForm = document.querySelector('.request-trip-form');
-var seePastTripsBtn = document.querySelector('.past-trips-btn')
-var seePendingTripsBtn = document.querySelector('.pending-trips-btn')
+var seePastTripsBtn = document.querySelector('.past-trips-btn');
+var seePendingTripsBtn = document.querySelector('.pending-trips-btn');
 var destinationGrid = document.querySelector('.destinations-grid');
+
+
 
 // EVENT LISTENERS:
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
     removeLoginForm(e)
-    renderMenu(e)
+    displayMenu(e)
     loadTravelerData(e)
 });
 
 bookTripBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    toggleDestinations()
+    displayDestinationsFromMenu()
     displayDestinations(allDestinations)
 });
 
@@ -75,12 +89,22 @@ returnHomeFromDestinationsBtn.addEventListener('click', () => {
 
 seePastTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    renderPastTripsDashboard(currentTravelerTotalTripInfo)
+    displayPastTripsDashboard(currentTravelerTotalTripInfo)
 })
 
 seePendingTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    renderPendingTrips(currentTravelerTotalTripInfo)
+    displayPendingTrips(currentTravelerTotalTripInfo)
+})
+
+returnHomeFromPendingBtn.addEventListener('click', (e) => {
+    returnHomeFromPending()
+})
+
+returnHomeFromPastBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    returnHomeFromPast()
+
 })
 
 returnHomeFromForm.addEventListener('click', (e) => {
@@ -92,18 +116,22 @@ returnHomeFromForm.addEventListener('click', (e) => {
 
 bookTripFromPastTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    renderDestinationsFromPastTrips(allDestinations)
+    displayDestinationsFromPastTrips(allDestinations)
 })
 
 bookTripFromPendingBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    renderDestinationsFromPendingTrips(allDestinations)
+    displayDestinationsFromPendingTrips(allDestinations)
 })
 
-// returnHomeBtn.addEventListener('click', () => {
-    // returnHome()
-    // newDestinationId = ''
-// });
+displayNewTripContainer.addEventListener('click', (e) => {
+    e.preventDefault()
+    let returnHomeFromNewBtn = e.target
+
+    if (returnHomeFromNewBtn.id === 'return-home-from-new-btn') {
+        returnHomeFromNewTrip()
+    } 
+})
 
 destinationGrid.addEventListener('click', (e) => {
     let destinationButton = e.target
@@ -111,7 +139,7 @@ destinationGrid.addEventListener('click', (e) => {
     if (destinationButton.id === 'lets-go-btn') {
         newDestinationId = destinationButton.parentElement.getAttribute('id')
         displayRequestTripForm()
-        displayDestinationImage(newDestinationId, allDestinations)
+        renderDestinationImage(newDestinationId, allDestinations)
     }
 });
 
@@ -165,7 +193,7 @@ function loadUpdatedTravelData() {
     })
     .then(destinationData => {
         console.log(currentTravelerTotalTripInfo)
-        displayNewTrip(currentTravelerTotalTripInfo)
+        renderNewTrip(currentTravelerTotalTripInfo)
         // sortTripStatus(currentTravelerTotalTripInfo)
     })
     .catch(error => {
