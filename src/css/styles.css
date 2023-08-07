@@ -3,12 +3,11 @@
 }
 
 body {
-  background-image: url(../images/image-one.jpg);
+  background-image: url(../images/sailboat.jpg);
   background-size: cover;
 }
 
 /* BUTTONS */
-
 .btn-container-past-trips {
   display: flex;
   flex-direction: row;
@@ -80,7 +79,7 @@ body {
   font-family: 'Cormorant Garamond', serif;
   justify-content: center;
   font-size: 20px;
-  width: 100%;
+  width: 70%;
 }
 
 .lets-go-btn {
@@ -95,6 +94,7 @@ body {
   display: flex;
   justify-content: space-between;
   height: 150px;
+  margin-top: 20px;
   background: rgba(225, 225, 225, 0.298);
 }
 
@@ -107,7 +107,20 @@ body {
   align-items: center;
   font-family:  'Cormorant Garamond', serif;
   font-size: 40px;
-  margin-left: 15px;
+  margin-left: 30px;
+  margin-bottom: 40px
+}
+
+.announcements-login-container{
+  display: flex;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+  padding: 5px;
+  
 }
 
 .login-form-container {
@@ -119,12 +132,41 @@ body {
   
 }
 
+.login-error-container {
+  display: flex;
+}
+
+.error-handling-login {
+  display: flex;
+  padding: 14px;
+  font-family:  'Cormorant Garamond', serif;
+  font-size: 17px;
+}
+
 .username-container,
-.password-container,
-.submit-container {
+.password-container {
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.password-label-container,
+.password-input-container {
+  display: flex;
+  margin-left: 2px;
+}
+
+label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  padding-top: 2px;
 }
 
 #username-input,
@@ -134,7 +176,7 @@ body {
 input[type=text] {
   cursor: pointer;
   line-height: 1.5rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 17px;
   font-weight: 600;
 }
@@ -142,15 +184,35 @@ input[type=text] {
 #start-date-input {
   cursor: pointer;
   line-height: 1.5rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 17px;
   font-weight: 600;
-  font: black;
 }
 
-h2 {
+h1 {
   margin: 0px;
   font-size: 30px;
+}
+
+.announcements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 55px;
+}
+
+.welcome-user {
+  display: flex;
+  margin-right: 20px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+.error-handling {
+  display: flex;
+  margin-right: 20px;
+  margin-top: 0px;
 }
 
 /* DASHBOARD */
@@ -399,7 +461,6 @@ label {
 input {
   display: flex;
   width: 175px;
-  color: black;
 }
 
 .display-new-trip-container {

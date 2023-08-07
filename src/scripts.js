@@ -3,16 +3,26 @@ import './css/styles.css';
 const dayjs = require('dayjs');
 
 import {
-    getUserData,
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
 } from './trips-data';
 
 import {
+    checkUserLogin
+} from './user-data'
+
+import {
 // LOGIN
     removeLoginForm,
     displayMenu,
+    // displayUserName,
+
+// LOGIN ERRORS
+    displayEmptyInputError, 
+    displayIncorrectPasswordError,
+    displayIncorrectUsernameError,
+
 // DISPLAY ON DOM
     displayRequestTripForm,
     displayDestinations,
@@ -34,21 +44,22 @@ import {
 
 
 // GLOBAL VARIABLES:
-var currentTraveler = {
-    id: 2,
-    name: "Rachael Vaughten",
-    travelerType: "thrill-seeker"
-};
 
+// var currentTravelerInfo;
+var currentTravelerId;
 var currentTravelersTrips;
 var currentTravelersDestinations;
 var currentTravelerTotalTripInfo;
+
+var allTravelers;
 var allDestinations;
 var allTrips;
 var newDestinationId;
 var newTripData;
 
-// QUERY SELECTORS
+// QUERY SELECTORS 
+var usernameInput = document.querySelector('#username-input')
+var passwordInput = document.querySelector('#password-input')
 var loginBtn = document.querySelector('.login-btn');
 
 var returnHomeFromPastBtn = document.querySelector('.return-home-from-past-btn')
@@ -71,9 +82,28 @@ var destinationGrid = document.querySelector('.destinations-grid');
 // EVENT LISTENERS:
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    removeLoginForm(e)
-    displayMenu(e)
-    loadTravelerData(e)
+
+    let username = usernameInput.value
+    let password = passwordInput.value
+
+    currentTravelerId = checkUserLogin(username, password)
+
+    if (currentTravelerId == 'Empty Input'){
+        displayEmptyInputError()
+
+    } else if (currentTravelerId == 'Password Error'){
+        displayIncorrectPasswordError()
+
+    } else if (currentTravelerId == 'Username Error') {
+        displayIncorrectUsernameError()
+
+    } else {
+        removeLoginForm(e)
+        displayMenu(e)
+        loadTravelerData(e)
+        // displayUserName(currentTravelerId, allTravelers)
+    }
+    
 });
 
 bookTripBtn.addEventListener('click', (e) => {
@@ -103,7 +133,6 @@ returnHomeFromPendingBtn.addEventListener('click', (e) => {
 returnHomeFromPastBtn.addEventListener('click', (e) => {
     e.preventDefault()
     returnHomeFromPast()
-
 })
 
 returnHomeFromForm.addEventListener('click', (e) => {
@@ -153,7 +182,7 @@ requestTripForm.addEventListener('click', (e) => {
         
         newTripData = {
             id: allTrips.length +1,
-            userID: currentTraveler.id,
+            userID: currentTravelerId,
             destinationID: parseInt(newDestinationId),
             travelers: parseInt(numTravelers),
             date: dayjs(startDate).format('YYYY/MM/DD'),
@@ -167,6 +196,7 @@ requestTripForm.addEventListener('click', (e) => {
 
 // LOAD TRAVELER DATA
 function loadTravelerData() {
+    // fetchTravelerDetails()
     fetchTravelerData()
         .then(travelerData => {
             return fetchTripData();
@@ -175,6 +205,7 @@ function loadTravelerData() {
             return fetchDestinationData();
         })
         .then(destinationData => {
+            
         })
         .catch(error => {
             console.error('Error initializing app:', error);
@@ -183,6 +214,7 @@ function loadTravelerData() {
 
 // LOAD UPDATED TRAVELER DATA
 function loadUpdatedTravelData() {
+    // fetchTravelerDetails()
     fetchTravelerData()
     .then(travelerData => {
         return fetchTripData();
@@ -200,11 +232,22 @@ function loadUpdatedTravelData() {
 }
 
 // FETCH
+
+// function fetchTravelerDetails(currentTravelerId) {
+    // return fetch(`http://localhost:3001/api/v1/${currentTravelerId}`)
+        // .then(response => response.json())
+        // .then(data => {
+            // currentTravelerInfo = data
+            // return currentTravelerInfo;
+        // });
+// };
+// 
 function fetchTravelerData() {
     return fetch(`http://localhost:3001/api/v1/travelers`)
         .then(response => response.json())
         .then(data => {
-            return data; 
+            allTravelers = data
+            return allTravelers;
         });
 };
 
@@ -213,7 +256,7 @@ function fetchTripData() {
         .then(response => response.json())
         .then(data => {
             allTrips = data.trips
-            currentTravelersTrips = getTripsList(currentTraveler.id, data.trips)
+            currentTravelersTrips = getTripsList(currentTravelerId, data.trips)
             return allTrips; 
         });
 };
@@ -223,9 +266,9 @@ function fetchDestinationData() {
         .then(response => response.json())
         .then(data => {
              allDestinations = data
-            //  console.log(allDestinations)
              currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations.destinations)
              currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations.destinations)
+             console.log(currentTravelerTotalTripInfo)
             return allDestinations; 
         });
 };
