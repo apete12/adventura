@@ -10,18 +10,28 @@
 <body>
   <nav class="nav-bar"> 
     <div class="welcome-container">
-      <h2  class="title">ADVENTURA</h2>
+      <h1  class="title">ADVENTURA</h1>
     </div>
     <div class="login-form-container">
       <form class="login-form">
         <div class="username-container">
-          <input id='username-input' type="string" name="username-input" placeholder="Username" value="" min="0" max = "10">
+          <div class="username-label-container">
+            <label label="username-input" for="username-input">Username:</label>
+          </div>
+          <div class="username-input-container">
+            <input id='username-input' type="string" name="username-input" placeholder="Username" value="" min="0" max = "10">
+          </div>
         </div>
         <div class="password-container">
-          <input id='password-input' type="string" name="password-input" placeholder="Password" value="" min="0" max = "10">
+          <div class="password-label-container">
+            <label label="password-input" class="password-class" for="password-input">Password:</label>
+          </div>
+          <div class="password-input-container">
+            <input id='password-input' type="string" name="password-input" placeholder="Password" value="" min="0" max = "10">
+          </div>
         </div>
         <div class="submit-container">
-          <input type="submit" value="LOGIN" class="login-btn">
+          <button class="login-btn">LOGIN</button>
         </div>
       </form>
     </div>
