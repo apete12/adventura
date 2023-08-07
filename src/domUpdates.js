@@ -17,7 +17,8 @@ var announcements = document.querySelector('.announcements')
 var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var loginErrorHandling = document.querySelector('.error-handling-login')
 
-
+var usernameInput = document.querySelector('#username-input')
+var passwordInput = document.querySelector('#password-input')
 // traveler menu 
 var travelerMenu = document.querySelector('.traveler-menu-container')
 
@@ -42,16 +43,22 @@ var locationDisplay = document.querySelector('.location-container')
 
 // DISPLAY LOGIN ERRORS
 const displayEmptyInputError = () => {
+    usernameInput.value = ''
+    passwordInput.value = ''
     loginErrorHandling.classList.remove('hidden')
     loginErrorHandling.innerText = 'Please enter username and password.'
 }
 
 const displayIncorrectPasswordError = () => {
+    usernameInput.value = ''
+    passwordInput.value = ''
     loginErrorHandling.classList.remove('hidden')
     loginErrorHandling.innerText = 'Please enter correct password.'
 }
 
 const displayIncorrectUsernameError = () => {
+    usernameInput.value = ''
+    passwordInput.value = ''
     loginErrorHandling.classList.remove('hidden')
     loginErrorHandling.innerText = 'Please enter correct username.'
 }
@@ -119,6 +126,7 @@ const returnHomeFromNewTrip = () => {
 
 const removeLoginForm = () => {
     loginForm.classList.add('hidden')
+    loginErrorHandling.classList.add('hidden')
     announcements.classList.remove('hidden')
 }
 
@@ -225,9 +233,17 @@ const renderNewTrip = (currentTravelerTotalTripInfo) => {
 
 const renderPendingTrips = (currentTravelerTotalTripInfo) => {
     let pendingTrips = getPendingTrips(currentTravelerTotalTripInfo)
+    console.log(pendingTrips)
 
     pendingTripDetailsDisplay.innerHTML = ''
 
+    if (pendingTrips.length === 0) {
+        pendingTripDetailsDisplay.innerHTML += `
+        <div class='no-pending-container'>
+            <p class="no-pending trip">You have no pending trips!</p>
+        </div>
+        `
+    } else {
     pendingTrips.map((trip) => {
         pendingTripDetailsDisplay.innerHTML += `
     <div class='destination-container'>
@@ -242,6 +258,7 @@ const renderPendingTrips = (currentTravelerTotalTripInfo) => {
     </div>
     `
     });
+    }
 }
 
 // EXPORTS:
