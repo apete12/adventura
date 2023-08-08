@@ -24,7 +24,7 @@ const sampleTripsData = { trips: [
     userID: 1,
     destinationID: 10,
     travelers: 1,
-    date: "2022/09/16",
+    date: "2023/09/16",
     duration: 8,
     status: "pending",
     suggestedActivities: []
@@ -54,7 +54,7 @@ const sampleTripsData = { trips: [
     userID: 1,
     destinationID: 13,
     travelers: 2,
-    date: "2022/02/25",
+    date: "2023/02/25",
     duration: 10,
     status: "approved",
     suggestedActivities: []
@@ -86,7 +86,7 @@ const user1Trips = [
       userID: 1,
       destinationID: 10,
       travelers: 1,
-      date: '2022/09/16',
+      date: '2023/09/16',
       duration: 8,
       status: 'pending',
       suggestedActivities: []
@@ -96,7 +96,7 @@ const user1Trips = [
       userID: 1,
       destinationID: 13,
       travelers: 2,
-      date: '2022/02/25',
+      date: '2023/02/25',
       duration: 10,
       status: 'approved',
       suggestedActivities: []
@@ -205,7 +205,7 @@ const totalTripDetailsOne = [
       tripStatus: 'pending',
       location: 'Lima, Peru',
       tripDuration: 8,
-      startDate: '2022/09/16',
+      startDate: '2023/09/16',
       numberOfTravelers: 1,
       flightCost: 400,
       lodgingCost: 560,
@@ -218,7 +218,7 @@ const totalTripDetailsOne = [
       tripStatus: 'approved',
       location: 'Cartagena, Colombia',
       tripDuration: 10,
-      startDate: '2022/02/25',
+      startDate: '2023/02/25',
       numberOfTravelers: 2,
       flightCost: 400,
       lodgingCost: 560,

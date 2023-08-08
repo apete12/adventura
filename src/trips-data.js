@@ -1,3 +1,7 @@
+const dayjs = require('dayjs');
+
+var today = dayjs().format("YYYY/MM/DD")
+
 const getTripsList = (userId, array) => {
     return array.filter((trip) => trip.userID === userId)
 };
@@ -90,10 +94,21 @@ const getNewTripDetails = (newTripDetails, allDestinations) => {
         return newTripTotalDetails
 }
 
-const getTotalTravelCost = (totalTripDetails) => {
+const getTotalTravelCost = (totalTripDetails, today) => {
+   
     let totalCost = totalTripDetails.reduce((sum, trip) => {
-        sum += trip.totalCost
+        
+        let date = trip.startDate
+        let thisYear = dayjs("2022/12/31").format("YYYY/MM/DD")
+       
+        if (dayjs(date).isBefore(today) && dayjs(date).isAfter(thisYear)) {
+            
+            sum += trip.totalCost
         return sum
+        } else {
+            return 0
+        }
+
     }, 0)
 
     let tenPercentFee = totalCost * .10

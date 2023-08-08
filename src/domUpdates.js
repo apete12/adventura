@@ -6,6 +6,10 @@ import {
     getApprovedTrips
 } from './trips-data'
 
+const dayjs = require('dayjs');
+
+var today = dayjs().format("YYYY/MM/DD")
+
 // QUERY SELECTORS:
 var loginForm = document.querySelector('.login-form-container')
 var announcements = document.querySelector('.announcements')
@@ -113,8 +117,8 @@ const displayValidTravelersError = () => {
     formErrorDisplay.innerText = 'Please enter at least 1 traveler.'
 }
 
-const displayYearExpenses = (totalTripDetails) => {
-    let totalCost = getTotalTravelCost(totalTripDetails)
+const displayYearExpenses = (totalTripDetails, today) => {
+    let totalCost = getTotalTravelCost(totalTripDetails, today)
 
     totalCostDisplay.innerText = `You've spent $${totalCost} on travel this year.`
 }
@@ -152,11 +156,11 @@ const removeLoginForm = () => {
     announcements.classList.remove('hidden')
 }
 
-const displayPastTripsDashboard = (totalTripDetails) => {
+const displayPastTripsDashboard = (totalTripDetails, today) => {
     travelerMenu.classList.add('hidden')
     pastTripDashboard.classList.remove('hidden')  
     renderTripDetails(totalTripDetails)
-    displayYearExpenses(totalTripDetails)     
+    displayYearExpenses(totalTripDetails, today)     
 }
 
 const displayPendingTrips = (totalTripDetails) => {

@@ -13,16 +13,6 @@ const checkUserLogin = (username, password) => {
     }
 };
 
-// const getUserFirstName = (userId, userList) => {
-    // console.log(userList)
-    // let userInfo = userList.find((user) => user.id === userId)
-// 
-    // console.log(userInfo)
-    // return userInfo
-// }
-
-
 export {
     checkUserLogin,
-    // getUserFirstName,
 };

@@ -139,7 +139,7 @@ returnHomeFromDestinationsBtn.addEventListener('click', () => {
 
 seePastTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    displayPastTripsDashboard(currentTravelerTotalTripInfo)
+    displayPastTripsDashboard(currentTravelerTotalTripInfo, today)
 });
 
 seePendingTripsBtn.addEventListener('click', (e) => {
