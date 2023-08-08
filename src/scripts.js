@@ -21,11 +21,16 @@ import {
     removeLoginForm,
     displayMenu,
     // displayUserName,
-
 // LOGIN ERRORS
     displayEmptyInputError, 
     displayIncorrectPasswordError,
     displayIncorrectUsernameError,
+
+// FORM ERRORS 
+    displayFutureDateError,
+    displayValidDateError,
+    displayValidDurationError,
+    displayValidTravelersError,
 
 // DISPLAY ON DOM
     displayRequestTripForm,
@@ -47,6 +52,8 @@ import {
 } from './domUpdates';
 
 // GLOBAL VARIABLES:
+
+var today = dayjs().format("YYYY/MM/DD")
 
 // var currentTravelerInfo;
 var currentTravelerId;
@@ -75,13 +82,19 @@ var bookTripBtn = document.querySelector('.book-trip-btn');
 var bookTripFromPastTripsBtn = document.querySelector('.book-trip-past-trips-btn');
 var bookTripFromPendingBtn = document.querySelector('.book-trip-from-pending-btn');
 
-var requestTripForm = document.querySelector('.request-trip-form');
+// var requestTripForm = document.querySelector('.request-trip-form');
+var formErrorDisplay = document.querySelector('.form-error-display')
+var submitButton = document.querySelector('.submit-request-btn')
+
+
+
 var seePastTripsBtn = document.querySelector('.past-trips-btn');
 var seePendingTripsBtn = document.querySelector('.pending-trips-btn');
 var destinationGrid = document.querySelector('.destinations-grid');
 
 // EVENT LISTENERS:
 window.addEventListener('load', () => {
+    console.log(today)
     Promise.all(promises)
     .then(results => {
         allTravelers = results[0].travelers
@@ -181,15 +194,28 @@ destinationGrid.addEventListener('click', (e) => {
     }
 });
 
-requestTripForm.addEventListener('click', (e) => {
+submitButton.addEventListener('click', (e) => {
     e.preventDefault()
 
-    let targetSubmitBtn = e.target
-    if (targetSubmitBtn.id === 'submit-request-btn') {
-        let startDate = document.getElementById("start-date-input").value
-        let duration = document.getElementById("duration-input").value
-        let numTravelers = document.getElementById("travelers-input").value
-        
+    formErrorDisplay.innerText = ''
+
+    let startDateValue = document.getElementById("start-date-input").value
+    let durationValue = document.getElementById("duration-input").value
+    let numTravelersValue = document.getElementById("travelers-input").value
+
+   if (dayjs(startDateValue).isBefore(today) || dayjs(startDateValue) === today){
+        displayFutureDateError()
+        return 'book trip in future'
+    } else if (startDateValue === '' || startDateValue === 'null') {
+        displayValidDateError()
+        return 'please enter valid date'
+    } else if (durationValue === '' || durationValue <= 0) {
+        displayValidDurationError()
+        return 'please enter duration of at least 1 night'
+    } else if (numTravelersValue === '' || numTravelersValue <= 0) {
+        displayValidTravelersError()
+        return 'please enter at least 1 traveler'
+    } else {
         newTripData = {
             id: allTrips.length +1,
             userID: currentTravelerId,
@@ -199,11 +225,10 @@ requestTripForm.addEventListener('click', (e) => {
             duration: parseInt(duration),
             status: 'pending',            
             suggestedActivities: [],
-        }
-        postNewtrip(newTripData)
+           }
+           postNewtrip(newTripData)     
     }
-});
-
+})
 
 // LOAD UPDATED TRAVELER DATA
 const loadUpdatedTravelData = () => {

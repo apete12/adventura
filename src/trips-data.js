@@ -64,7 +64,6 @@ return totalTripDetails
 const getTotalTravelCost = (totalTripDetails) => {
     let totalCost = totalTripDetails.reduce((sum, trip) => {
         sum += trip.totalCost
-
         return sum
     }, 0)
 

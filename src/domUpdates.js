@@ -30,11 +30,14 @@ var totalCostDisplay = document.querySelector('.total-cost-display')
 // pending trips
 var pendingTripDashboard = document.querySelector('.my-trips-pending-container')
 var pendingTripDetailsDisplay = document.querySelector('.pending-trip-details-display')
+var noPendingTripsDisplay = document.querySelector('.no-pending-trips-details-display')
 
 // request trip
 var requestTripDisplay = document.querySelector('.request-trip-container')
 var destinationContainer = document.querySelector('.display-destination-container')
 var chooseDestinationDisplay = document.querySelector('.destinations-grid')
+var formErrorDisplay = document.querySelector('.form-error-display')
+var formErrorContainer = document.querySelector('.form-error-container')
 
 // new trip confirmation
 var displayNewTripContainer = document.querySelector('.display-new-trip-container')
@@ -69,6 +72,50 @@ const displayIncorrectUsernameError = () => {
     // return firstName
 // }
 
+// DISPLAY FORM ERRORS
+
+const resetForm = () => {
+    let startDateValue = document.getElementById("start-date-input")
+    let durationValue = document.getElementById("duration-input")
+    let numTravelersValue = document.getElementById("travelers-input")
+
+    startDateValue.value = ''
+    durationValue.value = ''
+    numTravelersValue.value = ''
+}
+
+const displayFutureDateError = () => {
+    resetForm()
+    formErrorDisplay.innerHTML = ''
+  
+    formErrorDisplay.classList.remove('hidden')
+    formErrorDisplay.innerHTML += `
+        <p class="error">Please enter future date.</p>`
+}
+
+const displayValidDateError = () => {
+    resetForm()
+    formErrorDisplay.innerHTML = ''
+   
+    formErrorDisplay.classList.remove('hidden')
+    formErrorDisplay.innerText = 'Please enter valid date.'
+}
+
+const displayValidDurationError = () => {
+    resetForm()
+    formErrorDisplay.innerHTML = ''
+   
+    formErrorDisplay.classList.remove('hidden')
+    formErrorDisplay.innerText = 'Please enter duration of at least 1 night.'
+}
+
+const displayValidTravelersError = () => {
+    resetForm()
+    formErrorDisplay.innerHTML = ''
+    
+    formErrorDisplay.classList.remove('hidden')
+    formErrorDisplay.innerText = 'Please enter at least 1 traveler.'
+}
 
 // FUNCTIONS:
 const renderTripDetails = (totalTripDetails) => {
@@ -233,12 +280,11 @@ const renderNewTrip = (currentTravelerTotalTripInfo) => {
 
 const renderPendingTrips = (currentTravelerTotalTripInfo) => {
     let pendingTrips = getPendingTrips(currentTravelerTotalTripInfo)
-    console.log(pendingTrips)
 
     pendingTripDetailsDisplay.innerHTML = ''
 
     if (pendingTrips.length === 0) {
-        pendingTripDetailsDisplay.innerHTML += `
+        noPendingTripsDisplay.innerHTML += `
         <div class='no-pending-container'>
             <p class="no-pending trip">You have no pending trips!</p>
         </div>
@@ -264,8 +310,8 @@ const renderPendingTrips = (currentTravelerTotalTripInfo) => {
 // EXPORTS:
 export {
   // LOGIN
-  removeLoginForm,
-  displayMenu,
+removeLoginForm,
+displayMenu,
 //   displayUserName,
 
 // LOGIN ERRORS
@@ -273,23 +319,32 @@ displayEmptyInputError,
 displayIncorrectPasswordError,
 displayIncorrectUsernameError,
 
-  // DISPLAY ON DOM
-  displayRequestTripForm,
-  displayDestinations,
-  displayPastTripsDashboard,
-  displayPendingTrips,
-  displayDestinationsFromPastTrips,
-  displayDestinationsFromPendingTrips,
-  displayDestinationsFromMenu,
+// FORM ERRORS
+displayFutureDateError,
+displayValidDateError,
+displayValidDurationError,
+displayValidTravelersError,
 
+  // DISPLAY ON DOM
+displayRequestTripForm,
+displayDestinations,
+displayPastTripsDashboard,
+displayPendingTrips,
+displayDestinationsFromPastTrips,
+displayDestinationsFromPendingTrips,
+displayDestinationsFromMenu,
   // RENDER INNER HTML
-  renderNewTrip,
-  renderDestinationImage,
+renderNewTrip,
+renderDestinationImage,
 
   // RETURN HOME
-  returnHomeFromPast,
-  returnHomeFromDestinations,
-  returnHomeFromRequestForm,
-  returnHomeFromPending,
-  returnHomeFromNewTrip,
+returnHomeFromPast,
+returnHomeFromDestinations,
+returnHomeFromRequestForm,
+returnHomeFromPending,
+returnHomeFromNewTrip,
 }
+
+
+
+

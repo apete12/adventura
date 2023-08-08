@@ -77,10 +77,8 @@
       <div class="my-trips-pending-container hidden">
         <h2 class="all-trips heading">WHERE YOU'RE ADVENTURING:</h2>
         <div class="all-trips-container">
+          <div class="no-pending-trips-details-display"></div>
           <div class="pending-trip-details-display"></div>
-        </div>
-        <div class="trip-cost-container">
-          <div class="total-cost-display"></div>
         </div>
         <div class="btn-container-pending-trips">
           <div class="return-home-container">
@@ -120,12 +118,17 @@
               <input id='travelers-input' type="number" name="travelers" placeholder="number of travelers" value="" min="1" max = "100">
             </div>
           </div>
-          <div class="btn-container-request-form">
-            <div class="return-home-container">
-              <button class="return-home-from-form-btn">RETURN HOME</button>
+          <div class="announcements-button-container">
+            <div class="form-error-container">
+              <div class="form-error-display hidden"></div>
             </div>
-            <div class="submit-request-container">
-              <button id="submit-request-btn" class="submit-request-btn">SUBMIT</button>
+            <div class="btn-container-request-form">
+              <div class="return-home-container">
+                <button class="return-home-from-form-btn">RETURN HOME</button>
+              </div>
+              <div class="submit-request-container">
+                <button id="submit-request-btn" class="submit-request-btn">SUBMIT</button>
+              </div>
             </div>
           </div>
         </form>
