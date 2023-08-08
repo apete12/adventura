@@ -30,7 +30,9 @@ import {
 
 
 describe('See if the tests are running', function() {
+
   it('should return true', function() {
+
     expect(true).to.equal(true);
   });
 });
@@ -88,6 +90,7 @@ describe('Check travelers login', function() {
     expect(user1).to.equal('Username Error');
     expect(user2).to.equal('Username Error');
   });
+
 });
 
 
@@ -103,6 +106,7 @@ describe('Travelers trips list', function() {
   let user3 = getTripsList(userIdThree, tripsList)
 
   it('should return array', function() {
+
     expect(user1).to.be.an('array');
     expect(user2).to.be.an('array');
     expect(user3).to.be.an('array');
@@ -122,19 +126,21 @@ describe('Travelers trips list', function() {
     expect(user1TripId).to.deep.equal([ 1, 5 ]);
  });
 
- it('objects should contain destination ids', function() {
-  let user1TripDestinationID = user1.map((trip) => {
-    return trip.destinationID
+  it('objects should contain destination ids', function() {
+    let user1TripDestinationID = user1.map((trip) => {
+      return trip.destinationID
   })
-  expect(user1TripDestinationID).to.deep.equal([ 10, 13 ]);
-});
 
-it('objects should contain trip status', function() {
-  let user1TripStatus = user1.map((trip) => {
-    return trip.status
-  })
-  expect(user1TripStatus).to.deep.equal([ 'pending', 'approved' ]);
-});
+    expect(user1TripDestinationID).to.deep.equal([ 10, 13 ]);
+  });
+
+  it('objects should contain trip status', function() {
+    let user1TripStatus = user1.map((trip) => {
+      return trip.status
+    })
+
+    expect(user1TripStatus).to.deep.equal([ 'pending', 'approved' ]);
+  });
 
 });
 
@@ -154,17 +160,19 @@ describe('Travelers destinations list', function() {
 
 
   it('should return array of objects', function() {
-    expect(user1Destinations).to.deep.equal(destinations1);
-    expect(user2Destinations).to.deep.equal(destinations2);
-  });
-
-  it('objects should contain destination name', function() {
 
     expect(user1Destinations).to.deep.equal(destinations1);
     expect(user2Destinations).to.deep.equal(destinations2);
   });
 
   it('objects should contain destination name', function() {
+
+    expect(user1Destinations).to.deep.equal(destinations1);
+    expect(user2Destinations).to.deep.equal(destinations2);
+  });
+
+  it('objects should contain destination name', function() {
+
     expect(user1Destinations).to.deep.equal(destinations1);
     expect(user2Destinations).to.deep.equal(destinations2);
   });
@@ -187,6 +195,7 @@ describe('Travelers trip total cost', function() {
   })
 
   it('should return array of trip objects that each contain property of total cost', function() {
+
     expect(user1Cost).to.deep.equal([ 960, 1350 ]);
     expect(user2Cost).to.deep.equal([ 5700, 2460 ]);
   });
@@ -201,6 +210,7 @@ describe('Travelers total trip details', function() {
   let userTwo = getTotalTripDetails(user2Trips, destinationsList)
 
   it('should return array of trip objects', function() {
+
     expect(userOne).to.deep.equal(totalTripDetailsOne);
     expect(userTwo).to.deep.equal(totalTripDetailsTwo);
   });
@@ -210,16 +220,18 @@ describe('Travelers total trip details', function() {
 describe('Travelers total traveler cost', function() {
 
   let userOne = getTotalTravelCost(totalTripDetailsOne)
+  console.log(userOne)
+  
   let userTwo = getTotalTravelCost(totalTripDetailsTwo)
 
-  it('should return a number', function() {
-    expect(userOne).to.equal(2112);
-    expect(userTwo).to.equal(12540);
+  it('should return 0 if past trips are not in current year', function() {
+
+    expect(userTwo).to.equal(0);
   });
 
-  it('should return a cost of all users travel', function() {
-    expect(userOne).to.equal(2112);
-    expect(userTwo).to.equal(12540);
+  it('should return a cost of all users travel in year of current date', function() {
+
+    expect(userOne).to.equal(1056);
   });
 
 });
@@ -242,11 +254,13 @@ describe('Get destination from destination id', function() {
   }
 
   it('should return an object of destination information', function() {
+
     expect(destinationOne).to.deep.equal(destinationOneDetails);
   });
 
 
   it('should return an object destination matching id of parameter id', function() {
+
     expect(destinationOne.id).to.deep.equal(destinationId);
   });
 
@@ -262,6 +276,7 @@ describe('Get travelers approved trips', function() {
 
 
   it('should return alert if user does not have any approved trips', function() {
+
     expect(userTwoPending).to.deep.equal('No approved trips');
   });
 
@@ -273,7 +288,7 @@ describe('Get travelers approved trips', function() {
       tripStatus: 'approved',
       location: 'Cartagena, Colombia',
       tripDuration: 10,
-      startDate: '2022/02/25',
+      startDate: '2023/02/25',
       numberOfTravelers: 2,
       flightCost: 400,
       lodgingCost: 560,
@@ -284,6 +299,7 @@ describe('Get travelers approved trips', function() {
   ]
 
   it('should return an object of destination information', function() {
+
     expect(userOne).to.deep.equal(userOneApprovedList);
   });
 });
@@ -301,6 +317,7 @@ describe('Get travelers pending trips', function() {
   let userThreePending = getPendingTrips(userThreeTotalTrips)
 
   it('should return alert if user does not have any pending trips', function() {
+
     expect(userThreePending).to.deep.equal('No pending trips');
   });
 
@@ -315,7 +332,7 @@ describe('Get travelers pending trips', function() {
       tripStatus: 'pending',
       location: 'Lima, Peru',
       tripDuration: 8,
-      startDate: '2022/09/16',
+      startDate: '2023/09/16',
       numberOfTravelers: 1,
       flightCost: 400,
       lodgingCost: 560,
@@ -326,6 +343,7 @@ describe('Get travelers pending trips', function() {
   ]
 
   it('should return an array of objects containing pending trip', function() {
+
     expect(userOnePending).to.deep.equal(pendingTrips);
   });
 });

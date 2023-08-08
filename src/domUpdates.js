@@ -6,12 +6,17 @@ import {
     getApprovedTrips
 } from './trips-data'
 
+const dayjs = require('dayjs');
+
+var today = dayjs().format("YYYY/MM/DD")
+
 // QUERY SELECTORS:
+
+// login
 var loginForm = document.querySelector('.login-form-container')
 var announcements = document.querySelector('.announcements')
 var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var loginErrorHandling = document.querySelector('.error-handling-login')
-
 var usernameInput = document.querySelector('#username-input')
 var passwordInput = document.querySelector('#password-input')
 
@@ -33,7 +38,6 @@ var requestTripDisplay = document.querySelector('.request-trip-container')
 var destinationContainer = document.querySelector('.display-destination-container')
 var chooseDestinationDisplay = document.querySelector('.destinations-grid')
 var formErrorDisplay = document.querySelector('.form-error-display')
-var formErrorContainer = document.querySelector('.form-error-container')
 
 // new trip confirmation
 var displayNewTripContainer = document.querySelector('.display-new-trip-container')
@@ -113,8 +117,8 @@ const displayValidTravelersError = () => {
     formErrorDisplay.innerText = 'Please enter at least 1 traveler.'
 }
 
-const displayYearExpenses = (totalTripDetails) => {
-    let totalCost = getTotalTravelCost(totalTripDetails)
+const displayYearExpenses = (totalTripDetails, today) => {
+    let totalCost = getTotalTravelCost(totalTripDetails, today)
 
     totalCostDisplay.innerText = `You've spent $${totalCost} on travel this year.`
 }
@@ -152,11 +156,11 @@ const removeLoginForm = () => {
     announcements.classList.remove('hidden')
 }
 
-const displayPastTripsDashboard = (totalTripDetails) => {
+const displayPastTripsDashboard = (totalTripDetails, today) => {
     travelerMenu.classList.add('hidden')
     pastTripDashboard.classList.remove('hidden')  
     renderTripDetails(totalTripDetails)
-    displayYearExpenses(totalTripDetails)     
+    displayYearExpenses(totalTripDetails, today)     
 }
 
 const displayPendingTrips = (totalTripDetails) => {
@@ -270,7 +274,6 @@ const renderNewTrip = (newTripDisplayData) => {
 
 const renderPendingTrips = (currentTravelerTotalTripInfo) => {
     let pendingTrips = getPendingTrips(currentTravelerTotalTripInfo)
-    console.log('pendingTrips DOM', pendingTrips)
 
     pendingTripDetailsDisplay.innerHTML = ''
     noPendingTripsDisplay.innerHTML = ''
