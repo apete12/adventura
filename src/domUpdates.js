@@ -11,11 +11,12 @@ const dayjs = require('dayjs');
 var today = dayjs().format("YYYY/MM/DD")
 
 // QUERY SELECTORS:
+
+// login
 var loginForm = document.querySelector('.login-form-container')
 var announcements = document.querySelector('.announcements')
 var travelQuote = document.querySelector('.travel-quote-placeholder-container')
 var loginErrorHandling = document.querySelector('.error-handling-login')
-
 var usernameInput = document.querySelector('#username-input')
 var passwordInput = document.querySelector('#password-input')
 
@@ -37,7 +38,6 @@ var requestTripDisplay = document.querySelector('.request-trip-container')
 var destinationContainer = document.querySelector('.display-destination-container')
 var chooseDestinationDisplay = document.querySelector('.destinations-grid')
 var formErrorDisplay = document.querySelector('.form-error-display')
-var formErrorContainer = document.querySelector('.form-error-container')
 
 // new trip confirmation
 var displayNewTripContainer = document.querySelector('.display-new-trip-container')
@@ -274,7 +274,6 @@ const renderNewTrip = (newTripDisplayData) => {
 
 const renderPendingTrips = (currentTravelerTotalTripInfo) => {
     let pendingTrips = getPendingTrips(currentTravelerTotalTripInfo)
-    console.log('pendingTrips DOM', pendingTrips)
 
     pendingTripDetailsDisplay.innerHTML = ''
     noPendingTripsDisplay.innerHTML = ''

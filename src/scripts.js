@@ -68,6 +68,7 @@ var newDestinationId;
 var newTripData;
 
 // QUERY SELECTORS 
+
 var usernameInput = document.querySelector('#username-input')
 var passwordInput = document.querySelector('#password-input')
 var loginBtn = document.querySelector('.login-btn');
@@ -83,8 +84,6 @@ var bookTripFromPastTripsBtn = document.querySelector('.book-trip-past-trips-btn
 var bookTripFromPendingBtn = document.querySelector('.book-trip-from-pending-btn');
 var formErrorDisplay = document.querySelector('.form-error-display')
 var submitButton = document.querySelector('.submit-request-btn')
-
-
 
 var seePastTripsBtn = document.querySelector('.past-trips-btn');
 var seePendingTripsBtn = document.querySelector('.pending-trips-btn');
@@ -144,7 +143,6 @@ seePastTripsBtn.addEventListener('click', (e) => {
 
 seePendingTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    console.log('current traveler total Trip', currentTravelerTotalTripInfo)
     displayPendingTrips(currentTravelerTotalTripInfo)
 });
 
@@ -225,7 +223,6 @@ submitButton.addEventListener('click', (e) => {
             suggestedActivities: [],
            }
         
-        console.log(newTripData)
         let newTripDisplayData = getNewTripDetails(newTripData, allDestinations)
         renderNewTrip(newTripDisplayData) 
         postNewTrip(newTripData)
