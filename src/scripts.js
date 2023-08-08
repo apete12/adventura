@@ -6,6 +6,7 @@ import {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
+    getNewTripDetails
 } from './trips-data';
 
 import {
@@ -13,14 +14,14 @@ import {
 } from './user-data'
 
 import {
-    promises
+    promises,
+    fetchTripData
 } from './api-calls'
 
 import {
 // LOGIN
     removeLoginForm,
     displayMenu,
-    // displayUserName,
 // LOGIN ERRORS
     displayEmptyInputError, 
     displayIncorrectPasswordError,
@@ -55,7 +56,6 @@ import {
 
 var today = dayjs().format("YYYY/MM/DD")
 
-// var currentTravelerInfo;
 var currentTravelerId;
 var currentTravelersTrips;
 var currentTravelersDestinations;
@@ -81,8 +81,6 @@ var displayNewTripContainer = document.querySelector('.display-new-trip-containe
 var bookTripBtn = document.querySelector('.book-trip-btn');
 var bookTripFromPastTripsBtn = document.querySelector('.book-trip-past-trips-btn');
 var bookTripFromPendingBtn = document.querySelector('.book-trip-from-pending-btn');
-
-// var requestTripForm = document.querySelector('.request-trip-form');
 var formErrorDisplay = document.querySelector('.form-error-display')
 var submitButton = document.querySelector('.submit-request-btn')
 
@@ -94,7 +92,6 @@ var destinationGrid = document.querySelector('.destinations-grid');
 
 // EVENT LISTENERS:
 window.addEventListener('load', () => {
-    console.log(today)
     Promise.all(promises)
     .then(results => {
         allTravelers = results[0].travelers
@@ -147,6 +144,7 @@ seePastTripsBtn.addEventListener('click', (e) => {
 
 seePendingTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
+    console.log('current traveler total Trip', currentTravelerTotalTripInfo)
     displayPendingTrips(currentTravelerTotalTripInfo)
 });
 
@@ -220,34 +218,34 @@ submitButton.addEventListener('click', (e) => {
             id: allTrips.length +1,
             userID: currentTravelerId,
             destinationID: parseInt(newDestinationId),
-            travelers: parseInt(numTravelers),
-            date: dayjs(startDate).format('YYYY/MM/DD'),
-            duration: parseInt(duration),
+            travelers: numTravelersValue,
+            date: dayjs(startDateValue).format('YYYY/MM/DD'),
+            duration: parseInt(durationValue),
             status: 'pending',            
             suggestedActivities: [],
            }
-           postNewtrip(newTripData)     
+        
+        console.log(newTripData)
+        let newTripDisplayData = getNewTripDetails(newTripData, allDestinations)
+        renderNewTrip(newTripDisplayData) 
+        postNewTrip(newTripData)
+        .then(() => {
+            return fetchTripData()
+        })
+        .then((data) => {
+            allTrips = data.trips
+
+            currentTravelersTrips = getTripsList(currentTravelerId, allTrips)
+            currentTravelersDestinations = getTravelersDestinations(currentTravelersTrips, allDestinations)
+            currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations)
+
+        })
     }
 })
 
-// LOAD UPDATED TRAVELER DATA
-const loadUpdatedTravelData = () => {
-    Promise.all(promises)
-    .then(results => {
-        allTravelers = results[0].travelers
-        allTrips = results[1].trips
-        allDestinations = results[2].destinations
-        renderNewTrip(currentTravelerTotalTripInfo)
-    })
-
-    .catch(error => {
-        console.error('Error initializing app:', error);
-    })
-};
-
 
 // POST NEW TRIP:
-const postNewtrip = (newTripData) => {
+const postNewTrip = (newTripData) => {
     return fetch(`http://localhost:3001/api/v1/trips`, {
         method: "POST",
         body: JSON.stringify(newTripData),
@@ -256,10 +254,39 @@ const postNewtrip = (newTripData) => {
         }
     })
     .then(response => response.json())
-    .then(data => {
-        loadUpdatedTravelData()
-    })
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

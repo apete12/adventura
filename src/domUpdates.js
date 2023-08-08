@@ -1,15 +1,10 @@
 // IMPORTS:
-
 import {
     getTotalTravelCost,
     getDestination, 
     getPendingTrips,
     getApprovedTrips
 } from './trips-data'
-
-import {
-    getUserFirstName
-} from './user-data'
 
 // QUERY SELECTORS:
 var loginForm = document.querySelector('.login-form-container')
@@ -19,6 +14,7 @@ var loginErrorHandling = document.querySelector('.error-handling-login')
 
 var usernameInput = document.querySelector('#username-input')
 var passwordInput = document.querySelector('#password-input')
+
 // traveler menu 
 var travelerMenu = document.querySelector('.traveler-menu-container')
 
@@ -66,14 +62,14 @@ const displayIncorrectUsernameError = () => {
     loginErrorHandling.innerText = 'Please enter correct username.'
 }
 
-// WELCOME USER *NAME 
-// const displayUserName = (userId, userList) => {
-    // let firstName = getUserFirstName(userId, userList)
-    // return firstName
-// }
+// DISPLAY REQUEST FORM
+const displayRequestTripForm = () => {
+    destinationContainer.classList.add('hidden')
+    travelerMenu.classList.add('hidden')
+    requestTripDisplay.classList.remove('hidden')
+}
 
 // DISPLAY FORM ERRORS
-
 const resetForm = () => {
     let startDateValue = document.getElementById("start-date-input")
     let durationValue = document.getElementById("duration-input")
@@ -115,27 +111,6 @@ const displayValidTravelersError = () => {
     
     formErrorDisplay.classList.remove('hidden')
     formErrorDisplay.innerText = 'Please enter at least 1 traveler.'
-}
-
-// FUNCTIONS:
-const renderTripDetails = (totalTripDetails) => {
-    let approvedTrips = getApprovedTrips(totalTripDetails)
-    tripDetailsDisplay.innerHTML = ''
-
-    approvedTrips.map((trip) => {
-        tripDetailsDisplay.innerHTML += `
-    <div class='destination-container'>
-        <p class="destination-name trip">${trip.location}</p>
-        <p class="trip detail">Date: ${trip.startDate}</p>
-        <p class="trip detail">Number of Days: ${trip.tripDuration}</p>
-        <p class="trip detail">Group Size: ${trip.numberOfTravelers} Travelers</p>
-        <p class="trip detail">Status: ${trip.tripStatus}</p>
-        <p class="trip detail">Airfare: ${trip.flightCost}</p>
-        <p class="trip detail">Lodging: ${trip.lodgingCost}</p>
-        <p class="trip detail">Total Cost: ${trip.totalCost}</p>
-    </div>
-    `
-    });
 }
 
 const displayYearExpenses = (totalTripDetails) => {
@@ -215,6 +190,27 @@ const displayDestinationsFromPendingTrips = (allDestinations) => {
     displayDestinations(allDestinations)
 }
 
+// RENDER INNER HTML:
+const renderTripDetails = (totalTripDetails) => {
+    let approvedTrips = getApprovedTrips(totalTripDetails)
+    tripDetailsDisplay.innerHTML = ''
+
+    approvedTrips.map((trip) => {
+        tripDetailsDisplay.innerHTML += `
+    <div class='destination-container'>
+        <p class="destination-name trip">${trip.location}</p>
+        <p class="trip detail">Date: ${trip.startDate}</p>
+        <p class="trip detail">Number of Days: ${trip.tripDuration}</p>
+        <p class="trip detail">Group Size: ${trip.numberOfTravelers} Travelers</p>
+        <p class="trip detail">Status: ${trip.tripStatus}</p>
+        <p class="trip detail">Airfare: ${trip.flightCost}</p>
+        <p class="trip detail">Lodging: ${trip.lodgingCost}</p>
+        <p class="trip detail">Total Cost: ${trip.totalCost}</p>
+    </div>
+    `
+    });
+}
+
 const displayDestinations = (allDestinations) => {
     allDestinations.map((location) => {
         chooseDestinationDisplay.innerHTML += `
@@ -230,11 +226,6 @@ const displayDestinations = (allDestinations) => {
     });
 }
 
-const displayRequestTripForm = () => {
-    destinationContainer.classList.add('hidden')
-    travelerMenu.classList.add('hidden')
-    requestTripDisplay.classList.remove('hidden')
-}
 
 const renderDestinationImage = (destinationId, allDestinations) => {
     let destinationInfo = getDestination(destinationId, allDestinations)
@@ -249,26 +240,25 @@ const renderDestinationImage = (destinationId, allDestinations) => {
     </div>
     `
 }
-const renderNewTrip = (currentTravelerTotalTripInfo) => {
-    let copy = currentTravelerTotalTripInfo.map((trip) => trip)
-
-    let latestTrip = copy.reverse()
+const renderNewTrip = (newTripDisplayData) => {
 
     displayNewTripContainer.classList.remove('hidden')
     requestTripDisplay.classList.add('hidden')
     pastTripDashboard.classList.add('hidden')
 
+    let newTripDisplayObject = newTripDisplayData.find((trip) => trip)
+
     displayNewTripContainer.innerHTML = `
     <div class="new-trip-title-container">
-        <p class="your-trip-status"> Your trip to ${latestTrip[0].location} is ${latestTrip[0].tripStatus}!</p>
+        <p class="your-trip-status"> Your trip to ${newTripDisplayObject.location} is ${newTripDisplayObject.tripStatus}!</p>
     </div>
     <div class="new-trip-details-container">
-        <p class="your-trip-details">Day of Departure: ${latestTrip[0].startDate}</p>
-        <p class="your-trip-details">Number of Nights: ${latestTrip[0].tripDuration}</p>
-        <p class="your-trip-details">Total Cost:${latestTrip[0].totalCost}</p>
+        <p class="your-trip-details">Day of Departure: ${newTripDisplayObject.startDate}</p>
+        <p class="your-trip-details">Number of Nights: ${newTripDisplayObject.tripDuration}</p>
+        <p class="your-trip-details">Total Cost:${newTripDisplayObject.totalCost}</p>
     </div>
     <div class="new-trip-image-container">
-        <img class="new-trip-image" src='${latestTrip[0].image}' alt='${latestTrip[0].alt}'>
+        <img class="new-trip-image" src='${newTripDisplayObject.image}' alt='${newTripDisplayObject.alt}'>
     </div>
     <div class="btn-container-new-trips">
         <div class="return-home-container">
@@ -280,10 +270,12 @@ const renderNewTrip = (currentTravelerTotalTripInfo) => {
 
 const renderPendingTrips = (currentTravelerTotalTripInfo) => {
     let pendingTrips = getPendingTrips(currentTravelerTotalTripInfo)
+    console.log('pendingTrips DOM', pendingTrips)
 
     pendingTripDetailsDisplay.innerHTML = ''
+    noPendingTripsDisplay.innerHTML = ''
 
-    if (pendingTrips.length === 0) {
+    if (pendingTrips === 'No pending trips') {
         noPendingTripsDisplay.innerHTML += `
         <div class='no-pending-container'>
             <p class="no-pending trip">You have no pending trips!</p>
@@ -312,7 +304,6 @@ export {
   // LOGIN
 removeLoginForm,
 displayMenu,
-//   displayUserName,
 
 // LOGIN ERRORS
 displayEmptyInputError, 
@@ -333,6 +324,7 @@ displayPendingTrips,
 displayDestinationsFromPastTrips,
 displayDestinationsFromPendingTrips,
 displayDestinationsFromMenu,
+
   // RENDER INNER HTML
 renderNewTrip,
 renderDestinationImage,
