@@ -36,6 +36,7 @@ body {
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
+  padding-top: 0px;
 }
 
 .btn-container-new-trips {
@@ -46,8 +47,29 @@ body {
   padding-bottom: 5px;
 }
 
+.return-home-from-form-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  margin-right: 118px;
+}
+.submit-request-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  /* margin-top: 15px; */
+}
+
 .return-home-from-pending-btn,
-.return-home-from-form-btn,
+/* .return-home-from-form-btn, */
 .return-home-from-past-btn,
 .return-home-from-new-btn,
 .book-trip-past-trips-btn,
@@ -55,7 +77,7 @@ body {
 .pending-trips-btn, 
 .book-trip-btn,
 .exit-destination-btn,
-.submit-request-btn,
+/* .submit-request-btn, */
 .return-home-btn,
 .book-trip-from-pending-btn {
   display: flex;
@@ -130,9 +152,16 @@ body {
   padding: 5px;
   
 }
+.announcements-button-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* height: 20% */
+}
 
 .login-error-container {
   display: flex;
+  height: 20%
 }
 
 .error-handling-login {
@@ -282,6 +311,7 @@ margin: 0px;
   margin: 0px;
 }
 
+
 .trip-details-display,
 .pending-trip-details-display{
   display: grid;
@@ -403,6 +433,18 @@ width: 100%
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+}
+
+.form-error-container{
+  display: flex;
+  justify-content: center;
+  height: 25px;
+}
+
+.form-error-display{
+  display: flex;
+  font-size: 15px;
+  margin-left: 24px;
 }
 
 /* CONFIRMATION DASHBOARD */
