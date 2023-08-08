@@ -61,6 +61,35 @@ const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
 return totalTripDetails
 };
 
+
+const getNewTripDetails = (newTripDetails, allDestinations) => {
+    let destinationInfo = allDestinations.filter((destination) => destination.id === newTripDetails.destinationID)  
+
+    let newTripArray = [newTripDetails]
+    let newTripCost = getTripCost(newTripArray, allDestinations)
+    let newTripCostObject = newTripCost.find((trip) => trip)
+
+    let newTripTotalDetails = destinationInfo.reduce((array, destination) => {
+
+        array.push({
+            id: newTripDetails.id,
+            tripStatus: newTripDetails.status,
+            location: destination.destination,
+            tripDuration: newTripDetails.duration,
+            startDate: newTripDetails.date,
+            numberOfTravelers: newTripDetails.travelers,
+            flightCost: newTripCostObject.estimatedFlightsCost,
+            lodgingCost: newTripCostObject.estimatedLodgingCost,
+            totalCost: newTripCostObject.totalCost,
+            image: destination.image,
+            alt: destination.alt
+        })
+        return array
+
+    }, [])
+        return newTripTotalDetails
+}
+
 const getTotalTravelCost = (totalTripDetails) => {
     let totalCost = totalTripDetails.reduce((sum, trip) => {
         sum += trip.totalCost
@@ -78,21 +107,31 @@ const getDestination = (destinationId, allDestinations) => {
 };
 
 const getApprovedTrips = (currentTravelerTotalTripInfo) => {
-    let approvedTrips = currentTravelerTotalTripInfo.filter((trip) => trip.tripStatus == 'approved')
-    return approvedTrips
+    let approvedTrips = currentTravelerTotalTripInfo.filter((trip) => trip.tripStatus === 'approved')
+    if (approvedTrips.length === 0) {
+        return 'No approved trips'
+    } else {
+        return approvedTrips
+    }
 }
 
 const getPendingTrips = (currentTravelerTotalTripInfo) => {
     let pendingTrips = currentTravelerTotalTripInfo.filter((trip) => trip.tripStatus == 'pending')
+   if (pendingTrips.length === 0) {
+    return 'No pending trips'
+   } else {
     return pendingTrips
+   }
 }
 
 export {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
+    getTripCost,
     getTotalTravelCost,
     getDestination,
     getPendingTrips, 
     getApprovedTrips,
+    getNewTripDetails
 };
