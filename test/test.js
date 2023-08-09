@@ -7,7 +7,6 @@ import {
   getTravelersDestinations,
   getTripCost,
   getTotalTripDetails,
-  // getTotalTravelCost,
   getTotalTravelCostYear,
   getDestination,
   getPendingTrips, 
@@ -31,7 +30,7 @@ import {
 } from '../src/sample-data';
 
 describe('Check travelers login', function() {
-  it('should return number with successful login', function() {
+  it('should return user id with successful login', function() {
     let username1 = 'traveler1'
     let username2 = 'traveler2'
     let username3 = 'traveler3'
@@ -224,9 +223,8 @@ describe('Travelers total trip details', function() {
 describe('Travelers total expenses this year', function() {
 
   it('should return 0 if past trips are not in current year', function() {
-    let userTwo = getTotalTravelCostYear(totalTripDetailsTwo)
 
-    console.log('user one cost', userTwo)
+    let userTwo = getTotalTravelCostYear(totalTripDetailsTwo)
 
     expect(userTwo).to.equal(0);
   });
