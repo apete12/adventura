@@ -1,11 +1,21 @@
 const fetchTravelerData = (dataType) => { 
     return fetch(`http://localhost:3001/api/v1/${dataType}`)
-    .then(res => res.json())
+    .then((response) => {
+        if (!response.ok) {
+            return 'Network response was not ok.'
+        }
+        return response.json();
+      })
  }
 
  export const fetchTripData = () => { 
     return fetch(`http://localhost:3001/api/v1/trips`)
-    .then(res => res.json())
+    .then((response) => {
+        if (!response.ok) {
+            return 'Network response was not ok.'
+        }
+        return response.json();
+      })
  }
  
  export const promises = [
@@ -14,4 +24,10 @@ const fetchTravelerData = (dataType) => {
     fetchTravelerData('destinations')
  ]
 
+ 
+ 
+ 
+ 
+ 
+ 
  

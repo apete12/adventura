@@ -42,9 +42,11 @@ import {
     displayDestinationsFromPastTrips,
     displayDestinationsFromPendingTrips,
     displayDestinationsFromMenu,
+
 // RENDER INNER HTML
     renderNewTrip,
     renderDestinationImage,
+    
 // RETURN HOME
     returnHomeFromPast,
     returnHomeFromDestinations,
@@ -258,8 +260,13 @@ const postNewTrip = (newTripData) => {
         headers: {
             "Content-Type": "application/json"
         }
-    })
-    .then(response => response.json())
+    }).then((response) => {
+        if (!response.ok) {
+            return 'Network response was not ok.'
+        }
+        return response.json();
+      })
+
 };
 
 // HELPER FUNCTION:
