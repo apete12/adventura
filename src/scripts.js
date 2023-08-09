@@ -23,6 +23,10 @@ import {
     removeLoginForm,
     displayMenu,
     displayTravelerName,
+
+// SERVER ERRORS
+    displayServerErrors,
+
 // LOGIN ERRORS
     displayEmptyInputError, 
     displayIncorrectPasswordError,
@@ -100,6 +104,7 @@ window.addEventListener('load', () => {
         allTrips = results[1].trips
         allDestinations = results[2].destinations
     }).catch(error => {
+        displayServerErrors()
         console.error('Error initializing app:', error);
     });
 })
@@ -262,6 +267,7 @@ const postNewTrip = (newTripData) => {
         }
     }).then((response) => {
         if (!response.ok) {
+            displayServerErrors()
             return 'Network response was not ok.'
         }
         return response.json();

@@ -37,11 +37,17 @@ var requestTripDisplay = document.querySelector('.request-trip-container')
 var destinationContainer = document.querySelector('.display-destination-container')
 var chooseDestinationDisplay = document.querySelector('.destinations-grid')
 var formErrorDisplay = document.querySelector('.form-error-display')
-// var destination = document.querySelector('.destination-details')
 
 // new trip confirmation
 var displayNewTripContainer = document.querySelector('.display-new-trip-container')
 var locationDisplay = document.querySelector('.location-container')
+
+
+// DISPLAY SERVER ERRORS
+const displayServerErrors = () => {
+    loginErrorHandling.classList.remove('hidden')
+    loginErrorHandling.innerText = 'Experiencing server error.'
+}
 
 
 // DISPLAY LOGIN ERRORS
@@ -357,6 +363,9 @@ export {
 removeLoginForm,
 displayMenu,
 displayTravelerName,
+
+// SERVER ERRORS
+displayServerErrors,
 
 // LOGIN ERRORS
 displayEmptyInputError, 
