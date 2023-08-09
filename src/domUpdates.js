@@ -267,7 +267,7 @@ const displayDestinations = (allDestinations) => {
            </div>
         </div>
         <div class="lets-go-button-container" id='${location.id}'>
-            <button id="lets-go-btn" class="lets-go-btn">LETS GO</button>
+            <button id="lets-go-btn ${location.id}" class="lets-go-btn">LETS GO</button>
         </div>
     </div>
        `

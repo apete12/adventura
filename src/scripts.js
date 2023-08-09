@@ -256,7 +256,6 @@ submitButton.addEventListener('click', (e) => {
     }
 })
 
-
 // POST NEW TRIP:
 const postNewTrip = (newTripData) => {
     return fetch(`http://localhost:3001/api/v1/trips`, {
