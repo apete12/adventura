@@ -121,8 +121,7 @@ const getTotalTravelCostYear = (totalTripDetails, today) => {
         let date = trip.startDate
         let thisYear = dayjs("2022/12/31").format("YYYY/MM/DD")
        
-        if (dayjs(date).isBefore(today) && dayjs(date).isAfter(thisYear)) {
-            
+        if (dayjs(date).isAfter(thisYear)) {
             sum += trip.totalCost
         return sum
         } else {
