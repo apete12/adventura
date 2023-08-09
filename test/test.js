@@ -2,11 +2,13 @@ import chai from 'chai';
 const expect = chai.expect;
 
 import {
+  getUserName,
   getTripsList,
   getTravelersDestinations,
   getTripCost,
   getTotalTripDetails,
-  getTotalTravelCost,
+  // getTotalTravelCost,
+  getTotalTravelCostYear,
   getDestination,
   getPendingTrips, 
   getApprovedTrips,
@@ -27,15 +29,6 @@ import {
   totalTripDetailsOne,
   totalTripDetailsTwo,
 } from '../src/sample-data';
-
-
-describe('See if the tests are running', function() {
-
-  it('should return true', function() {
-
-    expect(true).to.equal(true);
-  });
-});
 
 describe('Check travelers login', function() {
   it('should return number with successful login', function() {
@@ -93,6 +86,18 @@ describe('Check travelers login', function() {
 
 });
 
+describe('Get travelers first name', function() {
+  let userIdOne = 1
+  let userList = sampleTravelersData.travelers
+
+  let userOneName = getUserName(userIdOne, userList)
+
+  it('should return users first name', function() {
+
+    expect(userOneName).to.equal('Ham');
+  });
+});
+
 
 describe('Travelers trips list', function() {
   let userIdOne = 1
@@ -143,7 +148,6 @@ describe('Travelers trips list', function() {
   });
 
 });
-
 
 describe('Travelers destinations list', function() {
   let userIdOne = 1
@@ -217,20 +221,20 @@ describe('Travelers total trip details', function() {
 
 });
 
-describe('Travelers total traveler cost', function() {
-
-  let userOne = getTotalTravelCost(totalTripDetailsOne)
-  console.log(userOne)
-  
-  let userTwo = getTotalTravelCost(totalTripDetailsTwo)
+describe('Travelers total expenses this year', function() {
 
   it('should return 0 if past trips are not in current year', function() {
+    let userTwo = getTotalTravelCostYear(totalTripDetailsTwo)
+
+    console.log('user one cost', userTwo)
 
     expect(userTwo).to.equal(0);
   });
 
   it('should return a cost of all users travel in year of current date', function() {
 
+    let userOne = getTotalTravelCostYear(totalTripDetailsOne)
+    
     expect(userOne).to.equal(1056);
   });
 
@@ -320,7 +324,6 @@ describe('Get travelers pending trips', function() {
 
     expect(userThreePending).to.deep.equal('No pending trips');
   });
-
 
   let user1Trips = getTripsList(1, tripsList)
   let userOneTotalTrips = getTotalTripDetails(user1Trips, destinationsList)

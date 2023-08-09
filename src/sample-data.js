@@ -16,8 +16,6 @@ const sampleTravelersData = { travelers: [
     }
 ]}
 
-
-
 const sampleTripsData = { trips: [
     {
     id: 1,

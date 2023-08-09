@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/d1470a0622.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href='https://fonts.googleapis.com/css2?family=Abel&family=Abril+Fatface&family=Antic+Didone&family=Bebas+Neue&family=Cormorant+Garamond:wght@300&family=Oswald:wght@500&family=Raleway:wght@100;400;600&display=swap'>
   <title>Adventura</title>
 </head>
@@ -14,8 +15,7 @@
     </div>
     <div class="announcements-login-container">
       <div class="announcements hidden">
-        <h2 class="welcome-user hidden">Welcome, User!</h2>
-        <h2 class="user-error-handling hidden">Show Error Here</h2>
+        <h2 class="welcome-user hidden"></h2>
       </div>
       <div class="login-container">
         <div class="login-error-container">
@@ -60,9 +60,10 @@
       <div class="my-past-trips-container hidden">
         <h2 class="all-trips heading">WHERE YOU'VE ADVENTURED:</h2>
         <div class="all-trips-container">
-          <div class="trip-details-display"></div>
+          <div class="past-trip-details-display"></div>
         </div>
         <div class="trip-cost-container">
+          <div class="total-cost-year-display"></div>
           <div class="total-cost-display"></div>
         </div>
         <div class="btn-container-past-trips">
@@ -90,7 +91,7 @@
         </div>
       </div>
       <div class="display-destination-container hidden">
-        <div class="choose-destination-container">
+        <div class="choose-destination-heading-container">
           <h2 class="choose-destination heading">CHOOSE YOUR NEXT ADVENTURE SPOT:</h2>
         </div>
         <article class="destinations-grid"></article>

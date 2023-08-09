@@ -2,8 +2,18 @@ const dayjs = require('dayjs');
 
 var today = dayjs().format("YYYY/MM/DD")
 
-const getTripsList = (userId, array) => {
-    return array.filter((trip) => trip.userID === userId)
+const getUserName = (userId, userList) => {
+    let userName = userList.find((user) => user.id === userId)
+
+    let wholeName = userName.name
+
+    let firstName = wholeName.split(' ')[0]
+
+    return firstName
+}
+
+const getTripsList = (userId, tripList) => {
+    return tripList.filter((trip) => trip.userID === userId)
 };
 
 const getTravelersDestinations = (currentTravelersTrips, allDestinations) => {
@@ -94,10 +104,21 @@ const getNewTripDetails = (newTripDetails, allDestinations) => {
         return newTripTotalDetails
 }
 
-const getTotalTravelCost = (totalTripDetails, today) => {
-   
+const getTotalTravelCost = (totalTripDetails) => {
     let totalCost = totalTripDetails.reduce((sum, trip) => {
+        sum += trip.totalCost
+        return sum
         
+    }, 0)
+
+    let tenPercentFee = totalCost * .10
+
+    return totalCost + tenPercentFee
+};
+
+const getTotalTravelCostYear = (totalTripDetails, today) => {
+    let totalCost = totalTripDetails.reduce((sum, trip) => {
+    
         let date = trip.startDate
         let thisYear = dayjs("2022/12/31").format("YYYY/MM/DD")
        
@@ -108,13 +129,11 @@ const getTotalTravelCost = (totalTripDetails, today) => {
         } else {
             return 0
         }
-
     }, 0)
-
     let tenPercentFee = totalCost * .10
-
     return totalCost + tenPercentFee
-};
+}
+
 
 const getDestination = (destinationId, allDestinations) => {
     let destinationInfo = allDestinations.find((destination) => destination.id == destinationId)
@@ -140,6 +159,7 @@ const getPendingTrips = (currentTravelerTotalTripInfo) => {
 }
 
 export {
+    getUserName,
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
@@ -148,5 +168,6 @@ export {
     getDestination,
     getPendingTrips, 
     getApprovedTrips,
-    getNewTripDetails
+    getNewTripDetails,
+    getTotalTravelCostYear
 };

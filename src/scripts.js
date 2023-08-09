@@ -6,7 +6,7 @@ import {
     getTripsList,
     getTravelersDestinations,
     getTotalTripDetails,
-    getNewTripDetails
+    getNewTripDetails,
 } from './trips-data';
 
 import {
@@ -22,6 +22,7 @@ import {
 // LOGIN
     removeLoginForm,
     displayMenu,
+    displayTravelerName,
 // LOGIN ERRORS
     displayEmptyInputError, 
     displayIncorrectPasswordError,
@@ -123,12 +124,15 @@ loginBtn.addEventListener('click', (e) => {
         currentTravelerTotalTripInfo = getTotalTripDetails(currentTravelersTrips, allDestinations)
         removeLoginForm(e)
         displayMenu(e)
+        displayTravelerName(currentTravelerId, allTravelers)
     }
 });
 
 bookTripBtn.addEventListener('click', (e) => {
     e.preventDefault()
+    clearForm()
     displayDestinationsFromMenu()
+
     displayDestinations(allDestinations)
 });
 
@@ -139,6 +143,7 @@ returnHomeFromDestinationsBtn.addEventListener('click', () => {
 seePastTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
     displayPastTripsDashboard(currentTravelerTotalTripInfo, today)
+    
 });
 
 seePendingTripsBtn.addEventListener('click', (e) => {
@@ -163,11 +168,13 @@ returnHomeFromForm.addEventListener('click', (e) => {
 
 bookTripFromPastTripsBtn.addEventListener('click', (e) => {
     e.preventDefault()
+    clearForm()
     displayDestinationsFromPastTrips(allDestinations)
 });
 
 bookTripFromPendingBtn.addEventListener('click', (e) => {
     e.preventDefault()
+    clearForm()
     displayDestinationsFromPendingTrips(allDestinations)
 });
 
@@ -185,7 +192,9 @@ destinationGrid.addEventListener('click', (e) => {
 
     if (destinationButton.id === 'lets-go-btn') {
         newDestinationId = destinationButton.parentElement.getAttribute('id')
+
         displayRequestTripForm()
+
         renderDestinationImage(newDestinationId, allDestinations)
     }
 });
@@ -222,8 +231,8 @@ submitButton.addEventListener('click', (e) => {
             status: 'pending',            
             suggestedActivities: [],
            }
-        
-        let newTripDisplayData = getNewTripDetails(newTripData, allDestinations)
+
+           let newTripDisplayData = getNewTripDetails(newTripData, allDestinations)
         renderNewTrip(newTripDisplayData) 
         postNewTrip(newTripData)
         .then(() => {
@@ -253,6 +262,18 @@ const postNewTrip = (newTripData) => {
     .then(response => response.json())
 };
 
+// HELPER FUNCTION:
+const clearForm = () => {
+    formErrorDisplay.innerText = ''
+
+    let startDateValue = document.getElementById("start-date-input")
+    let durationValue = document.getElementById("duration-input")
+    let numTravelersValue = document.getElementById("travelers-input")
+
+    startDateValue.value = ''
+    durationValue.value = ''
+    numTravelersValue.value =''
+}
 
 
 

@@ -13,7 +13,6 @@ body {
   flex-direction: row;
   width: 75%;
   justify-content: space-between;
-  padding-top: 25px;
 }
 
 .btn-container-pending-trips{
@@ -57,6 +56,7 @@ body {
   font-size: 20px;
   margin-right: 118px;
 }
+
 .submit-request-btn {
   display: flex;
   flex-direction: row;
@@ -65,11 +65,9 @@ body {
   cursor: pointer;
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
-  /* margin-top: 15px; */
 }
 
 .return-home-from-pending-btn,
-/* .return-home-from-form-btn, */
 .return-home-from-past-btn,
 .return-home-from-new-btn,
 .book-trip-past-trips-btn,
@@ -77,7 +75,6 @@ body {
 .pending-trips-btn, 
 .book-trip-btn,
 .exit-destination-btn,
-/* .submit-request-btn, */
 .return-home-btn,
 .book-trip-from-pending-btn {
   display: flex;
@@ -134,6 +131,7 @@ body {
 
 .announcements-login-container{
   display: flex;
+  flex-direction: column;
 }
 
 .login-container {
@@ -141,7 +139,6 @@ body {
   flex-direction: row;
   margin-right: 10px;
   padding: 5px;
-  
 }
 
 .login-form-container {
@@ -150,13 +147,12 @@ body {
   align-items: flex-start;
   margin-right: 10px;
   padding: 5px;
-  
 }
+
 .announcements-button-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* height: 20% */
 }
 
 .login-error-container {
@@ -237,11 +233,11 @@ h1 {
   margin-bottom: 0px;
 }
 
-.error-handling {
-  display: flex;
-  margin-right: 20px;
-  margin-top: 0px;
-}
+/* .error-handling { */
+  /* display: flex; */
+  /* margin-right: 20px; */
+  /* margin-top: 0px; */
+/* } */
 
 /* DASHBOARD */
 .dashboard-container {
@@ -255,7 +251,7 @@ h1 {
 .dashboard {
   display: flex;
   flex-direction: column;
-  height: 60vh;
+  height: 63vh;
   width: 50vw;
   font-family: 'Cormorant Garamond', serif;
   background: rgba(225, 225, 225, 0.791);
@@ -276,7 +272,6 @@ h1 {
 }
 
 /* TRAVELER MENU */
-
 .traveler-menu-container {
   display: flex;
   flex-direction: column;
@@ -289,7 +284,8 @@ h1 {
 display: flex;
 flex-direction: column;
 align-items: center;
-margin: 0px;
+margin-left: 10px;
+width: 100%;
 }
 
 .trip {
@@ -301,29 +297,48 @@ margin: 0px;
 .detail {
   font-size: 15px;
   font-family: 'Raleway', sans-serif;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
+.trip-cost-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 5px;
+}
+
+.total-cost-year-display,
 .total-cost-display{
   display: flex;
   font-size: 20px;
-  margin: 0px;
 }
 
-
-.trip-details-display,
 .pending-trip-details-display{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 33vh;
+  grid-auto-rows: 26vh;
+  grid-gap: 15px;
   height: 100%;
   width: 100%;
   overflow-y: scroll;
   margin: 0px;
 }
 
-/* PAST TRIPS DASHBOARD */
+/* PAST AND PENDING TRIPS DASHBOARD */
+
+.past-trip-details-display {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 26vh;
+  grid-gap: 15px;
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  margin: 0px;
+}
+
 .my-past-trips-container{
   display: flex;
   flex-direction: column;
@@ -342,7 +357,37 @@ margin: 0px;
   margin-top: 15px;
 }
 
-/* PENDING TRIPS DASHBOARD */
+.destination-container-past,
+.destination-container-pending {
+  display: flex;
+  flex-direction: column;
+  background: rgb(251, 249, 249);
+  border: solid black 1px;
+}
+
+.details-container-pending,
+.details-container-past {
+  display: flex;
+  flex-direction: row; 
+  padding-left: 10px;
+}
+
+.destaination-name {
+  margin-bottom: 10px;
+}
+
+.location-name-container-past{
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.location-details-one-container-past,
+.location-details-two-container-past {
+  display: flex;
+  flex-direction: column;
+  width: 50%
+}
 
 .my-trips-pending-container{
 display: flex;
@@ -381,52 +426,86 @@ width: 100%
   height: 100%;
 }
 
-.choose-destination-container {
+.choose-destination-heading-container {
   display: flex;
   justify-content: center;
-  height: 15%;
+  height: 10%;
+}
+
+.destination-container {
+  display: flex;
+  flex-direction: row;
 }
 
 .destinations-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-columns: 1vw;
-  grid-auto-rows: 15vh;
+  grid-auto-rows: 25vh;
   grid-gap: 55px;
-  height: 70%;
+  height: 75%;
   width: 100%;
   overflow-y: scroll;
   margin: 0px;
 }
 
+.total-destination-container{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 100%;
+  margin: 10px;
+  margin-bottom: 25px;
+  padding-top: 20px;
+  padding: 6px;
+  background: rgb(251, 249, 249);
+  border: 1px solid black;
+}
+
 .destination-details {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
+  padding-left: 10px;
   margin: 0px;
 }
 
 .destination-location-container {
   display: flex;
-  background: rgba(225, 225, 225, 0.966);
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  width: 100%;
+  padding-bottom: 15px;
 }
 
 .destination-location {
-  font-size: 20px;
+  font-size: 23px;
   display: flex;
   margin: 0px;
   font-family:'Cormorant Garamond', serif;
 }
 
+.location-image {
+  width: auto;
+  height: 65px;
+  margin-right: 5px;
+}
+
+.lets-go-button-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 15px;
+  padding-top: 15px;
+  width: 100%;
+}
+
 .destination-flight,
 .destination-lodging {
   display: flex;
-  margin: 5px;
+  margin: 2px;
   font-family:'Raleway', sans-serif;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .inputs-container {
