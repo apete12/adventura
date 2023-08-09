@@ -220,7 +220,7 @@ describe('Travelers total trip details', function() {
 
 describe('Travelers total expenses this year', function() {
 
-  it('should return 0 if past trips are not in current year', function() {
+  it('should return 0 if user has no past or present trips in current year', function() {
 
     let userTwo = getTotalTravelCostYear(totalTripDetailsTwo)
 
@@ -231,7 +231,7 @@ describe('Travelers total expenses this year', function() {
 
     let userOne = getTotalTravelCostYear(totalTripDetailsOne)
     
-    expect(userOne).to.equal(1056);
+    expect(userOne).to.equal(2112);
   });
 });
 
