@@ -179,7 +179,6 @@ describe('Travelers destinations list', function() {
     expect(user1Destinations).to.deep.equal(destinations1);
     expect(user2Destinations).to.deep.equal(destinations2);
   });
-
 });
 
 describe('Travelers trip total cost', function() {
@@ -217,7 +216,6 @@ describe('Travelers total trip details', function() {
     expect(userOne).to.deep.equal(totalTripDetailsOne);
     expect(userTwo).to.deep.equal(totalTripDetailsTwo);
   });
-
 });
 
 describe('Travelers total expenses this year', function() {
@@ -235,7 +233,6 @@ describe('Travelers total expenses this year', function() {
     
     expect(userOne).to.equal(1056);
   });
-
 });
 
 describe('Get destination from destination id', function() {
@@ -265,7 +262,6 @@ describe('Get destination from destination id', function() {
 
     expect(destinationOne.id).to.deep.equal(destinationId);
   });
-
 });
 
 describe('Get travelers approved trips', function() {

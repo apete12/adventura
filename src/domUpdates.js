@@ -9,7 +9,6 @@ import {
 } from './trips-data'
 
 // QUERY SELECTORS:
-
 // login
 var loginForm = document.querySelector('.login-form-container')
 var announcements = document.querySelector('.announcements')

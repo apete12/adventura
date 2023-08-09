@@ -13,3 +13,5 @@ const fetchTravelerData = (dataType) => {
     fetchTravelerData('trips'),
     fetchTravelerData('destinations')
  ]
+
+ 

@@ -75,7 +75,6 @@ const getTotalTripDetails = (currentTravelersTrips, allDestinations) => {
 return totalTripDetails
 };
 
-
 const getNewTripDetails = (newTripDetails, allDestinations) => {
     let destinationInfo = allDestinations.filter((destination) => destination.id === newTripDetails.destinationID)  
 
